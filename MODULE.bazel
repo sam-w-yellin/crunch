@@ -1,0 +1,6 @@
+bazel_dep(name = "rules_cc", version = "0.2.14")
+bazel_dep(name = "catch2", version = "3.11.0")
+bazel_dep(name = "platforms", version = "1.0.0")
+bazel_dep(name = "rules_doxygen", version = "2.6.1", dev_dependency = True)
+doxygen_extension = use_extension("@rules_doxygen//:extensions.bzl", "doxygen_extension")
+use_repo(doxygen_extension, "doxygen")

@@ -1,0 +1,14 @@
+build --cxxopt="-std=c++23"
+build:clang --action_env=CC=clang
+build:clang-20 --action_env=CC=clang-20
+build:gcc --action_env=CC=g++-13
+build --cxxopt="-Wall"
+build --cxxopt="-Wextra"
+build --cxxopt="-Wunused"
+build --cxxopt="-Wold-style-cast"
+build --cxxopt="-Wcast-align"
+build --cxxopt="-Werror"
+build --cxxopt="-Wconversion"
+build --cxxopt="-Wpedantic"
+build --cxxopt="-Wshadow"
+build --per_file_copt=.*external/.*@-w

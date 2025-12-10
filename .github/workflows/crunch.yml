@@ -1,0 +1,53 @@
+name: Crunch CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    name: Lint Check
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install clang-format
+      run: sudo apt-get update && sudo apt-get install -y clang-format-20
+    - name: Run clang-format
+      # Uses local .clang-format via --style=file
+      run: find crunch -name "*.hpp" -o -name "*.cpp" | xargs clang-format-20 --dry-run --Werror --style=file
+
+  test:
+    name: Build & Test
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        compiler: [clang-20, gcc]
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    # Install Clang and a modern GCC (for libstdc++ with C++23 support)
+    - name: Install Compilers
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y clang-20 g++-13
+
+    # Installs Bazel using Bazelisk
+    - name: Setup Bazel
+      uses: bazelbuild/setup-bazelisk@v3
+
+    # Cache Bazel artifacts to speed up builds
+    - name: Mount bazel cache
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cache/bazel
+        key: bazel-${{ runner.os }}-${{ matrix.compiler }}-${{ hashFiles('WORKSPACE', 'MODULE.bazel', '.bazelrc') }}
+        restore-keys: |
+          bazel-${{ runner.os }}-${{ matrix.compiler }}-
+
+    - name: Run Tests
+      run: bazel test --config=${{ matrix.compiler }} //...
