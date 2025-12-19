@@ -90,10 +90,10 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">Crunch </div></div>
+  <div class="headertitle"><div class="title"><a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a> </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_README"></a> <b>Crunch</b> is a C++ message definition and serialization framework for mission-critical, resource-constrained systems where message semantics matter as much as structure.</p>
+<div class="textblock"><p><a class="anchor" id="md_README"></a> <b><a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a></b> is a C++ message definition and serialization framework for mission-critical, resource-constrained systems where message semantics matter as much as structure.</p>
 <h1><a class="anchor" id="autotoc_md1"></a>
 Key Features</h1>
 <ul>
@@ -114,8 +114,8 @@ Validation Flow</h1>
 <p>Note that validation can be bypassed by using <code>SerializeWithoutValidation</code>.</p>
 <h1><a class="anchor" id="autotoc_md3"></a>
 Dependencies</h1>
-<p><em>Crunch</em> requires C++23 and uses some STL libraries.</p>
-<p><em>None of the STL libraries used by Crunch perform dynamic memory allocation.</em></p>
+<p><em><a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a></em> requires C++23 and uses some STL libraries.</p>
+<p><em>None of the STL libraries used by <a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a> perform dynamic memory allocation.</em></p>
 <h1><a class="anchor" id="autotoc_md4"></a>
 Message Definition &amp; Fields</h1>
 <p>Messages must define the following:</p><ol type="1">
@@ -130,7 +130,7 @@ Message Definition &amp; Fields</h1>
 <li>A set of validators</li>
 <li>A default value</li>
 </ol>
-<p>Crunch supports the following field types:</p><ul>
+<p><a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a> supports the following field types:</p><ul>
 <li><code>Int8</code></li>
 <li><code>Int16</code></li>
 <li><code>Int32</code></li>
@@ -280,7 +280,7 @@ Example Usage</h1>
 <div class="line">}</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md6"></a>
 Serialization Layouts</h1>
-<p>Crunch supports pluggable serialization layouts. The <code>serdes::StaticLayout&lt;Alignment&gt;</code> policy provides a deterministic, fixed-size binary format. All multi-byte values are serialized in <b>Little Endian</b> byte order.</p>
+<p><a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a> supports pluggable serialization layouts. The <code>serdes::StaticLayout&lt;Alignment&gt;</code> policy provides a deterministic, fixed-size binary format. All multi-byte values are serialized in <b>Little Endian</b> byte order.</p>
 <h2><a class="anchor" id="autotoc_md7"></a>
 Header</h2>
 <p>Every message serialized with <code>Serialize</code> currently includes a header.</p><ul>
