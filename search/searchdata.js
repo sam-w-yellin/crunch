@@ -9,8 +9,7 @@ var indexSectionsWithContent =
   6: "efw",
   7: "acdiptuv",
   8: "c",
-  9: "c",
-  10: "c"
+  9: "c"
 };
 
 var indexSectionNames =
@@ -24,8 +23,7 @@ var indexSectionNames =
   6: "enums",
   7: "enumvalues",
   8: "related",
-  9: "pages",
-  10: "concepts"
+  9: "concepts"
 };
 
 var indexSectionLabels =
@@ -39,7 +37,6 @@ var indexSectionLabels =
   6: "Enumerations",
   7: "Enumerator",
   8: "Friends",
-  9: "Pages",
-  10: "Concepts"
+  9: "Concepts"
 };
 

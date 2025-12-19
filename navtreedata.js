@@ -25,22 +25,6 @@
 var NAVTREE =
 [
   [ "Crunch", "index.html", [
-    [ "Key Features", "index.html#autotoc_md1", null ],
-    [ "Validation Flow", "index.html#autotoc_md2", null ],
-    [ "Dependencies", "index.html#autotoc_md3", null ],
-    [ "Message Definition & Fields", "index.html#autotoc_md4", null ],
-    [ "Example Usage", "index.html#autotoc_md5", null ],
-    [ "Serialization Layouts", "index.html#autotoc_md6", [
-      [ "Header", "index.html#autotoc_md7", null ],
-      [ "Static Layout", "index.html#autotoc_md8", [
-        [ "Example: Alignment = 4", "index.html#autotoc_md9", null ]
-      ] ],
-      [ "Tag-Length-Value (TLV) Layout", "index.html#autotoc_md10", [
-        [ "Wire Types", "index.html#autotoc_md11", null ],
-        [ "Example: TLV Layout", "index.html#autotoc_md12", null ]
-      ] ]
-    ] ],
-    [ "Roadmap", "index.html#autotoc_md13", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [

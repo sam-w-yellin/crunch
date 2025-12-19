@@ -6,7 +6,7 @@ var searchData=
   ['clear_3',['clear',['../classCrunch_1_1messages_1_1ArrayField.html#af1d4f343387d50f190aeb4e92f898412',1,'Crunch::messages::ArrayField::clear()'],['../classCrunch_1_1messages_1_1Field.html#a21761e58daaf28d05cf9e4e4c1cf22b1',1,'Crunch::messages::Field::clear()']]],
   ['code_4',['code',['../structCrunch_1_1Error.html#a8c6225fd10ebb858333e41c050e02a2c',1,'Crunch::Error']]],
   ['crc16_5',['CRC16',['../structCrunch_1_1integrity_1_1CRC16.html',1,'Crunch::integrity']]],
-  ['crunch_6',['Crunch',['../namespaceCrunch.html',1,'Crunch'],['../index.html',1,'(Global Namespace)']]],
+  ['crunch_6',['Crunch',['../namespaceCrunch.html',1,'']]],
   ['crunchmessage_7',['CrunchMessage',['../conceptCrunch_1_1messages_1_1CrunchMessage.html',1,'Crunch::messages']]],
   ['crunchversionid_8',['CrunchVersionId',['../namespaceCrunch.html#a2c3230e10728f491efe4e268bf3a43da',1,'Crunch']]],
   ['detail_9',['detail',['../namespaceCrunch_1_1detail.html',1,'Crunch']]],
