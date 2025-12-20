@@ -43,5 +43,12 @@
 # bazel build artifacts
 bazel-*
 
-# doxygen
-docs/
+# doxygen generated
+docs/html/
+docs/latex/
+
+# cppcheck
+checkers_report.txt
+
+# cmake build directory
+cmake_build/

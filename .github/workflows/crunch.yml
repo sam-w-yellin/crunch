@@ -16,10 +16,24 @@ jobs:
       run: sudo apt-get update && sudo apt-get install -y clang-format-20
     - name: Run clang-format
       # Uses local .clang-format via --style=file
-      run: find crunch -name "*.hpp" -o -name "*.cpp" | xargs clang-format-20 --dry-run --Werror --style=file
+      run: find include test -name "*.hpp" -o -name "*.cpp" | xargs clang-format-20 --dry-run --Werror --style=file
 
-  test:
-    name: Build & Test
+  static-analysis:
+    name: Static Analysis (cppcheck)
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install cppcheck
+      run: sudo apt-get update && sudo apt-get install -y cppcheck
+    - name: Run cppcheck
+      run: |
+        cppcheck --enable=all --check-level=exhaustive --std=c++23 --inline-suppr \
+          --suppress=missingIncludeSystem \
+          -I include \
+          $(find include -name "*.hpp")
+
+  bazel-test:
+    name: Bazel Build & Test
     runs-on: ubuntu-latest
     
     strategy:
@@ -51,3 +65,25 @@ jobs:
 
     - name: Run Tests
       run: bazel test --config=${{ matrix.compiler }} //...
+
+  cmake-test:
+    name: CMake Build & Test
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cmake g++-13 catch2
+
+    - name: Configure
+      run: cmake -B cmake_build -DCMAKE_CXX_COMPILER=g++-13 -DCRUNCH_BUILD_TESTS=ON
+
+    - name: Build
+      run: cmake --build cmake_build
+
+    - name: Test
+      run: ctest --test-dir cmake_build --output-on-failure
+
