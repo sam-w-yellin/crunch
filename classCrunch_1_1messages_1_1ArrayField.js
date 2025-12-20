@@ -9,6 +9,5 @@ var classCrunch_1_1messages_1_1ArrayField =
     [ "set", "classCrunch_1_1messages_1_1ArrayField.html#a26a4cc0a94069b89e67095bc23438f56", null ],
     [ "set", "classCrunch_1_1messages_1_1ArrayField.html#ac6d1fe4780b8c49514531f813aa79875", null ],
     [ "size", "classCrunch_1_1messages_1_1ArrayField.html#ad57252c722ee6da31bd3dd445bbc6703", null ],
-    [ "Validate", "classCrunch_1_1messages_1_1ArrayField.html#a968e9a6d11c6ae924257142900769462", null ],
-    [ "validate_presence", "classCrunch_1_1messages_1_1ArrayField.html#ab6479311b834e8c0d6324da2ae911baa", null ]
+    [ "Validate", "classCrunch_1_1messages_1_1ArrayField.html#a968e9a6d11c6ae924257142900769462", null ]
 ];

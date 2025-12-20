@@ -94,19 +94,22 @@ $(document).ready(function(){initNavTree('conceptCrunch_1_1messages_1_1ValidElem
 </div><!--header-->
 <div class="contents">
 
-<p>Concept for valid element types within Field or ArrayField. Must be a scalar, string, or message.  
+<p>Concept for valid element type in Array/Map. Must be a scalar, string, message, array, or map.  
 <a href="conceptCrunch_1_1messages_1_1ValidElementType.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="crunch__field_8hpp_source.html">crunch_field.hpp</a>&gt;</code></p>
 <h2 class="groupheader">Concept definition</h2>
 <div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="conceptCrunch_1_1messages_1_1ValidElementType.html">Crunch::messages::ValidElementType</a> =  fields::is_scalar_v&lt;std::remove_cvref_t&lt;T&gt;&gt; ||</div>
-<div class="line">                           fields::is_string_v&lt;std::remove_cvref_t&lt;T&gt;&gt; ||</div>
-<div class="line">                           <a class="code hl_concept" href="conceptCrunch_1_1messages_1_1HasCrunchMessageInterface.html">HasCrunchMessageInterface&lt;std::remove_cvref_t&lt;T&gt;</a>&gt;</div>
-<div class="ttc" id="aconceptCrunch_1_1messages_1_1HasCrunchMessageInterface_html"><div class="ttname"><a href="conceptCrunch_1_1messages_1_1HasCrunchMessageInterface.html">Crunch::messages::HasCrunchMessageInterface</a></div><div class="ttdoc">Concept to detect if a type quacks like a Crunch Message.</div><div class="ttdef"><b>Definition:</b> crunch_field.hpp:232</div></div>
-<div class="ttc" id="aconceptCrunch_1_1messages_1_1ValidElementType_html"><div class="ttname"><a href="conceptCrunch_1_1messages_1_1ValidElementType.html">Crunch::messages::ValidElementType</a></div><div class="ttdoc">Concept for valid element types within Field or ArrayField. Must be a scalar, string,...</div><div class="ttdef"><b>Definition:</b> crunch_field.hpp:242</div></div>
+<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="conceptCrunch_1_1messages_1_1ValidElementType.html">Crunch::messages::ValidElementType</a> = </div>
+<div class="line">    Crunch::fields::is_scalar_v&lt;std::remove_cvref_t&lt;T&gt;&gt; ||</div>
+<div class="line">    Crunch::fields::is_string_v&lt;std::remove_cvref_t&lt;T&gt;&gt; ||</div>
+<div class="line">    <a class="code hl_concept" href="conceptCrunch_1_1messages_1_1HasCrunchMessageInterface.html">HasCrunchMessageInterface&lt;std::remove_cvref_t&lt;T&gt;</a>&gt; ||</div>
+<div class="line">    is_array_field_v&lt;std::remove_cvref_t&lt;T&gt;&gt; ||</div>
+<div class="line">    is_map_field_v&lt;std::remove_cvref_t&lt;T&gt;&gt;</div>
+<div class="ttc" id="aconceptCrunch_1_1messages_1_1HasCrunchMessageInterface_html"><div class="ttname"><a href="conceptCrunch_1_1messages_1_1HasCrunchMessageInterface.html">Crunch::messages::HasCrunchMessageInterface</a></div><div class="ttdoc">Concept to detect if a type quacks like a Crunch Message.</div><div class="ttdef"><b>Definition:</b> crunch_field.hpp:235</div></div>
+<div class="ttc" id="aconceptCrunch_1_1messages_1_1ValidElementType_html"><div class="ttname"><a href="conceptCrunch_1_1messages_1_1ValidElementType.html">Crunch::messages::ValidElementType</a></div><div class="ttdoc">Concept for valid element type in Array/Map. Must be a scalar, string, message, array,...</div><div class="ttdef"><b>Definition:</b> crunch_field.hpp:275</div></div>
 </div><!-- fragment --><a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Concept for valid element types within Field or ArrayField. Must be a scalar, string, or message. </p>
+<div class="textblock"><p>Concept for valid element type in Array/Map. Must be a scalar, string, message, array, or map. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

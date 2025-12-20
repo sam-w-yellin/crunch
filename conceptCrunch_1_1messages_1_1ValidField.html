@@ -102,13 +102,15 @@ $(document).ready(function(){initNavTree('conceptCrunch_1_1messages_1_1ValidFiel
 <div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="conceptCrunch_1_1messages_1_1ValidField.html">Crunch::messages::ValidField</a> = </div>
 <div class="line">    messages::is_array_field_v&lt;std::remove_cvref_t&lt;T&gt;&gt; ||</div>
+<div class="line">    messages::is_map_field_v&lt;std::remove_cvref_t&lt;T&gt;&gt; ||</div>
 <div class="line">    (messages::is_field_v&lt;std::remove_cvref_t&lt;T&gt;&gt; &amp;&amp;</div>
 <div class="line">     <a class="code hl_concept" href="conceptCrunch_1_1messages_1_1ValidElementType.html">ValidElementType&lt;typename std::remove_cvref_t&lt;T&gt;::FieldType</a>&gt;)</div>
-<div class="ttc" id="aconceptCrunch_1_1messages_1_1ValidElementType_html"><div class="ttname"><a href="conceptCrunch_1_1messages_1_1ValidElementType.html">Crunch::messages::ValidElementType</a></div><div class="ttdoc">Concept for valid element types within Field or ArrayField. Must be a scalar, string,...</div><div class="ttdef"><b>Definition:</b> crunch_field.hpp:242</div></div>
-<div class="ttc" id="aconceptCrunch_1_1messages_1_1ValidField_html"><div class="ttname"><a href="conceptCrunch_1_1messages_1_1ValidField.html">Crunch::messages::ValidField</a></div><div class="ttdoc">Concept checking if a type T is a valid field wrapper instance.</div><div class="ttdef"><b>Definition:</b> crunch_messages.hpp:53</div></div>
+<div class="ttc" id="aconceptCrunch_1_1messages_1_1ValidElementType_html"><div class="ttname"><a href="conceptCrunch_1_1messages_1_1ValidElementType.html">Crunch::messages::ValidElementType</a></div><div class="ttdoc">Concept for valid element type in Array/Map. Must be a scalar, string, message, array,...</div><div class="ttdef"><b>Definition:</b> crunch_field.hpp:275</div></div>
+<div class="ttc" id="aconceptCrunch_1_1messages_1_1ValidField_html"><div class="ttname"><a href="conceptCrunch_1_1messages_1_1ValidField.html">Crunch::messages::ValidField</a></div><div class="ttdoc">Concept checking if a type T is a valid field wrapper instance.</div><div class="ttdef"><b>Definition:</b> crunch_messages.hpp:58</div></div>
 </div><!-- fragment --><a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Concept checking if a type T is a valid field wrapper instance. </p>
-<p>Must be a <a class="el" href="classCrunch_1_1messages_1_1Field.html" title="Wrapper for a message field within a CrunchMessage.">Crunch::messages::Field</a> or ArrayField. For Field, validate that its inner type is valid. We reuse the ValidElementType concept because all valid Array elements are valid fields. </p>
+<p>Must be a <a class="el" href="classCrunch_1_1messages_1_1Field.html" title="Wrapper for a message field within a CrunchMessage.">Crunch::messages::Field</a> or ArrayField. For Field, validate that its inner type is valid. We reuse the ValidElementType concept because all valid Array elements are valid fields.</p>
+<dl class="section note"><dt>Note</dt><dd>FieldType is a type exposed by all <a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a> top-level field types - Field, ArrayField, and MapField. It is used both in this concept to assert that a field is a valid <a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a> field, and by serialization protocols to create compile-time branching logic based on a field's underlying type. </dd></dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -98,11 +98,6 @@ $(document).ready(function(){initNavTree('structCrunch_1_1serdes_1_1TlvLayout.ht
   <div class="headertitle"><div class="title">Crunch::serdes::TlvLayout Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p>TLV Serialization Policy.  
- <a href="structCrunch_1_1serdes_1_1TlvLayout.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="crunch__tlv__layout_8hpp_source.html">crunch_tlv_layout.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
@@ -140,15 +135,7 @@ static constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom">
 <tr class="memdesc:af4624ed2e4e2fd88a749fb8ffd36dd84"><td class="mdescLeft">&#160;</td><td class="mdescRight">The maximum number of bits required for a Tag (FieldID + WireType). Used for calculating the maximum size of a tag varint.  <br /></td></tr>
 <tr class="separator:af4624ed2e4e2fd88a749fb8ffd36dd84"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>TLV Serialization Policy. </p>
-<p>Implements a Tag-Length-Value serialization format where:</p><ul>
-<li>Fields are identified by Field ID and Wire Type.</li>
-<li>Integers/Floats/Bool are encoded as Varints.</li>
-<li>Strings, Nested Messages, and Packed Arrays are LengthDelimited.</li>
-<li>The top-level message body is length-prefixed (4 bytes) to handle buffer padding. </li>
-</ul>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="a406a47184c1e7744470c91605bfa9090" name="a406a47184c1e7744470c91605bfa9090"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a406a47184c1e7744470c91605bfa9090">&#9670;&#160;</a></span>Deserialize()</h2>
 
@@ -316,7 +303,7 @@ template&lt;typename Message &gt; </div>
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
 <div class="line">        <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="namespaceCrunch.html#a3967e2718857d918101818dbbb7c2d5f">FieldId</a>) * 8 + <a class="code hl_variable" href="structCrunch_1_1serdes_1_1TlvLayout.html#aa0e444e888bba1b990434b1afa7561eb">WireTypeBits</a></div>
 <div class="ttc" id="anamespaceCrunch_html_a3967e2718857d918101818dbbb7c2d5f"><div class="ttname"><a href="namespaceCrunch.html#a3967e2718857d918101818dbbb7c2d5f">Crunch::FieldId</a></div><div class="ttdeci">int32_t FieldId</div><div class="ttdoc">Unique identifier for a field within a Crunch message.</div><div class="ttdef"><b>Definition:</b> crunch_types.hpp:11</div></div>
-<div class="ttc" id="astructCrunch_1_1serdes_1_1TlvLayout_html_aa0e444e888bba1b990434b1afa7561eb"><div class="ttname"><a href="structCrunch_1_1serdes_1_1TlvLayout.html#aa0e444e888bba1b990434b1afa7561eb">Crunch::serdes::TlvLayout::WireTypeBits</a></div><div class="ttdeci">static constexpr std::size_t WireTypeBits</div><div class="ttdoc">Number of bits used for the wire type in a tag.</div><div class="ttdef"><b>Definition:</b> crunch_tlv_layout.hpp:47</div></div>
+<div class="ttc" id="astructCrunch_1_1serdes_1_1TlvLayout_html_aa0e444e888bba1b990434b1afa7561eb"><div class="ttname"><a href="structCrunch_1_1serdes_1_1TlvLayout.html#aa0e444e888bba1b990434b1afa7561eb">Crunch::serdes::TlvLayout::WireTypeBits</a></div><div class="ttdeci">static constexpr std::size_t WireTypeBits</div><div class="ttdoc">Number of bits used for the wire type in a tag.</div><div class="ttdef"><b>Definition:</b> crunch_tlv_layout.hpp:66</div></div>
 </div><!-- fragment -->
 <p>The maximum number of bits required for a Tag (FieldID + WireType). Used for calculating the maximum size of a tag varint. </p>
 

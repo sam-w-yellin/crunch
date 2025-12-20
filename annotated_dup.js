@@ -21,12 +21,21 @@ var annotated_dup =
       [ "messages", null, [
         [ "ArrayField", "classCrunch_1_1messages_1_1ArrayField.html", "classCrunch_1_1messages_1_1ArrayField" ],
         [ "Field", "classCrunch_1_1messages_1_1Field.html", "classCrunch_1_1messages_1_1Field" ],
+        [ "field_value_type", "structCrunch_1_1messages_1_1field__value__type.html", null ],
+        [ "field_value_type< T >", "structCrunch_1_1messages_1_1field__value__type_3_01T_01_4.html", null ],
         [ "is_array_field", "structCrunch_1_1messages_1_1is__array__field.html", null ],
         [ "is_array_field< ArrayField< Id, E, M, V... > >", "structCrunch_1_1messages_1_1is__array__field_3_01ArrayField_3_01Id_00_01E_00_01M_00_01V_8_8_8_01_4_01_4.html", null ],
         [ "is_field", "structCrunch_1_1messages_1_1is__field.html", null ],
-        [ "is_field< Field< Id, P, T > >", "structCrunch_1_1messages_1_1is__field_3_01Field_3_01Id_00_01P_00_01T_01_4_01_4.html", null ]
+        [ "is_field< Field< Id, P, T > >", "structCrunch_1_1messages_1_1is__field_3_01Field_3_01Id_00_01P_00_01T_01_4_01_4.html", null ],
+        [ "is_map_field", "structCrunch_1_1messages_1_1is__map__field.html", null ],
+        [ "is_map_field< MapField< Id, K, V, M, Vs... > >", "structCrunch_1_1messages_1_1is__map__field_3_01MapField_3_01Id_00_01K_00_01V_00_01M_00_01Vs_8_8_8_01_4_01_4.html", null ],
+        [ "MapField", "classCrunch_1_1messages_1_1MapField.html", "classCrunch_1_1messages_1_1MapField" ]
       ] ],
       [ "serdes", null, [
+        [ "detail", "namespaceCrunch_1_1serdes_1_1detail.html", [
+          [ "ext", "structCrunch_1_1serdes_1_1detail_1_1ext.html", null ],
+          [ "ext< T >", "structCrunch_1_1serdes_1_1detail_1_1ext_3_01T_01_4.html", null ]
+        ] ],
         [ "StaticLayout", "structCrunch_1_1serdes_1_1StaticLayout.html", null ],
         [ "TlvLayout", "structCrunch_1_1serdes_1_1TlvLayout.html", "structCrunch_1_1serdes_1_1TlvLayout" ],
         [ "Varint", "structCrunch_1_1serdes_1_1Varint.html", null ]

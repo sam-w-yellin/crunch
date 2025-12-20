@@ -7,15 +7,20 @@ var hierarchy =
     [ "Crunch::EqualTo< Threshold >", "structCrunch_1_1EqualTo.html", null ],
     [ "Crunch::Error", "structCrunch_1_1Error.html", null ],
     [ "Crunch::Even", "structCrunch_1_1Even.html", null ],
+    [ "Crunch::serdes::detail::ext< T >", "structCrunch_1_1serdes_1_1detail_1_1ext.html", null ],
+    [ "Crunch::serdes::detail::ext< T >", "structCrunch_1_1serdes_1_1detail_1_1ext_3_01T_01_4.html", null ],
     [ "Crunch::False", "structCrunch_1_1False.html", null ],
     [ "std::false_type", null, [
       [ "Crunch::detail::is_buffer< T >", "structCrunch_1_1detail_1_1is__buffer.html", null ],
       [ "Crunch::fields::is_scalar< T >", "structCrunch_1_1fields_1_1is__scalar.html", null ],
       [ "Crunch::fields::is_string< T >", "structCrunch_1_1fields_1_1is__string.html", null ],
       [ "Crunch::messages::is_array_field< T >", "structCrunch_1_1messages_1_1is__array__field.html", null ],
-      [ "Crunch::messages::is_field< T >", "structCrunch_1_1messages_1_1is__field.html", null ]
+      [ "Crunch::messages::is_field< T >", "structCrunch_1_1messages_1_1is__field.html", null ],
+      [ "Crunch::messages::is_map_field< T >", "structCrunch_1_1messages_1_1is__map__field.html", null ]
     ] ],
     [ "Crunch::messages::Field< Id, PresenceValidator, Type >", "classCrunch_1_1messages_1_1Field.html", null ],
+    [ "Crunch::messages::field_value_type< T >", "structCrunch_1_1messages_1_1field__value__type.html", null ],
+    [ "Crunch::messages::field_value_type< T >", "structCrunch_1_1messages_1_1field__value__type_3_01T_01_4.html", null ],
     [ "Crunch::FixedString< N >", "structCrunch_1_1FixedString.html", null ],
     [ "Crunch::GreaterThan< Threshold >", "structCrunch_1_1GreaterThan.html", null ],
     [ "Crunch::GreaterThanOrEqualTo< Threshold >", "structCrunch_1_1GreaterThanOrEqualTo.html", null ],
@@ -25,6 +30,7 @@ var hierarchy =
     [ "Crunch::LengthAtMost< N >", "structCrunch_1_1LengthAtMost.html", null ],
     [ "Crunch::LessThan< Threshold >", "structCrunch_1_1LessThan.html", null ],
     [ "Crunch::LessThanOrEqualTo< Threshold >", "structCrunch_1_1LessThanOrEqualTo.html", null ],
+    [ "Crunch::messages::MapField< Id, KeyField, ValueField, MaxSize, Validators >", "classCrunch_1_1messages_1_1MapField.html", null ],
     [ "Crunch::Negative", "structCrunch_1_1Negative.html", null ],
     [ "Crunch::integrity::None", "structCrunch_1_1integrity_1_1None.html", null ],
     [ "Crunch::None", "structCrunch_1_1None.html", null ],
@@ -49,7 +55,8 @@ var hierarchy =
       [ "Crunch::fields::is_scalar< Scalar< ScalarType, Validators... > >", "structCrunch_1_1fields_1_1is__scalar_3_01Scalar_3_01ScalarType_00_01Validators_8_8_8_01_4_01_4.html", null ],
       [ "Crunch::fields::is_string< String< MaxSize, V... > >", "structCrunch_1_1fields_1_1is__string_3_01String_3_01MaxSize_00_01V_8_8_8_01_4_01_4.html", null ],
       [ "Crunch::messages::is_array_field< ArrayField< Id, E, M, V... > >", "structCrunch_1_1messages_1_1is__array__field_3_01ArrayField_3_01Id_00_01E_00_01M_00_01V_8_8_8_01_4_01_4.html", null ],
-      [ "Crunch::messages::is_field< Field< Id, P, T > >", "structCrunch_1_1messages_1_1is__field_3_01Field_3_01Id_00_01P_00_01T_01_4_01_4.html", null ]
+      [ "Crunch::messages::is_field< Field< Id, P, T > >", "structCrunch_1_1messages_1_1is__field_3_01Field_3_01Id_00_01P_00_01T_01_4_01_4.html", null ],
+      [ "Crunch::messages::is_map_field< MapField< Id, K, V, M, Vs... > >", "structCrunch_1_1messages_1_1is__map__field_3_01MapField_3_01Id_00_01K_00_01V_00_01M_00_01Vs_8_8_8_01_4_01_4.html", null ]
     ] ],
     [ "Crunch::Unique", "structCrunch_1_1Unique.html", null ],
     [ "Crunch::serdes::Varint", "structCrunch_1_1serdes_1_1Varint.html", null ]

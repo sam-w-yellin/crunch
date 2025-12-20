@@ -100,7 +100,7 @@ $(document).ready(function(){initNavTree('classCrunch_1_1messages_1_1ArrayField.
 </div><!--header-->
 <div class="contents">
 
-<p>Self-contained array field with storage, validation, and field metadata.  
+<p>Concept for valid element types within <a class="el" href="classCrunch_1_1messages_1_1Field.html" title="Wrapper for a message field within a CrunchMessage.">Field</a> or <a class="el" href="classCrunch_1_1messages_1_1ArrayField.html" title="Concept for valid element types within Field or ArrayField.">ArrayField</a>.  
  <a href="classCrunch_1_1messages_1_1ArrayField.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="crunch__field_8hpp_source.html">crunch_field.hpp</a>&gt;</code></p>
@@ -116,9 +116,6 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>FieldType</b> = <a c
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab6479311b834e8c0d6324da2ae911baa"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCrunch_1_1messages_1_1ArrayField.html#ab6479311b834e8c0d6324da2ae911baa">validate_presence</a> () const noexcept -&gt; std::optional&lt; <a class="el" href="structCrunch_1_1Error.html">Error</a> &gt;</td></tr>
-<tr class="memdesc:ab6479311b834e8c0d6324da2ae911baa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arrays don't have presence validation - always returns nullopt. Use array validators (<a class="el" href="structCrunch_1_1LengthAtLeast.html" title="Validates that a container has at least N elements.">LengthAtLeast</a>, etc.) instead.  <br /></td></tr>
-<tr class="separator:ab6479311b834e8c0d6324da2ae911baa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a546e92bfa4f63bce32cb1351f403d71c"><td class="memItemLeft" align="right" valign="top">constexpr std::optional&lt; <a class="el" href="structCrunch_1_1Error.html">Error</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCrunch_1_1messages_1_1ArrayField.html#a546e92bfa4f63bce32cb1351f403d71c">add</a> (const ElementType &amp;val) noexcept</td></tr>
 <tr class="memdesc:a546e92bfa4f63bce32cb1351f403d71c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds an element to the array.  <br /></td></tr>
 <tr class="separator:a546e92bfa4f63bce32cb1351f403d71c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,7 +125,7 @@ requires (N &lt;= MaxSize)</td></tr>
 <tr class="memdesc:ac6d1fe4780b8c49514531f813aa79875"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set array contents from a std::array.  <br /></td></tr>
 <tr class="separator:ac6d1fe4780b8c49514531f813aa79875"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a26a4cc0a94069b89e67095bc23438f56"><td class="memItemLeft" align="right" valign="top">constexpr std::optional&lt; <a class="el" href="structCrunch_1_1Error.html">Error</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCrunch_1_1messages_1_1ArrayField.html#a26a4cc0a94069b89e67095bc23438f56">set</a> (const <a class="el" href="classCrunch_1_1messages_1_1ArrayField.html">ArrayField</a> &amp;other) noexcept</td></tr>
-<tr class="memdesc:a26a4cc0a94069b89e67095bc23438f56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set array contents from another <a class="el" href="classCrunch_1_1messages_1_1ArrayField.html" title="Self-contained array field with storage, validation, and field metadata.">ArrayField</a>.  <br /></td></tr>
+<tr class="memdesc:a26a4cc0a94069b89e67095bc23438f56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set array contents from another <a class="el" href="classCrunch_1_1messages_1_1ArrayField.html" title="Concept for valid element types within Field or ArrayField.">ArrayField</a>.  <br /></td></tr>
 <tr class="separator:a26a4cc0a94069b89e67095bc23438f56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1d4f343387d50f190aeb4e92f898412"><td class="memItemLeft" align="right" valign="top"><a id="af1d4f343387d50f190aeb4e92f898412" name="af1d4f343387d50f190aeb4e92f898412"></a>
 constexpr void&#160;</td><td class="memItemRight" valign="bottom"><b>clear</b> () noexcept</td></tr>
@@ -189,8 +186,8 @@ struct&#160;</td><td class="memItemRight" valign="bottom"><b>Crunch::serdes::Tlv
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;FieldId Id, typename ElementType, std::size_t MaxSize, typename... Validators&gt;<br />
-requires (ValidElementType&lt;ElementType&gt; &amp;&amp; (sizeof...(Validators) &gt;= 1))<br />
-class Crunch::messages::ArrayField&lt; Id, ElementType, MaxSize, Validators &gt;</div><p>Self-contained array field with storage, validation, and field metadata. </p>
+class Crunch::messages::ArrayField&lt; Id, ElementType, MaxSize, Validators &gt;</div><p>Concept for valid element types within <a class="el" href="classCrunch_1_1messages_1_1Field.html" title="Wrapper for a message field within a CrunchMessage.">Field</a> or <a class="el" href="classCrunch_1_1messages_1_1ArrayField.html" title="Concept for valid element types within Field or ArrayField.">ArrayField</a>. </p>
+<p>Self-contained array field with storage, validation, and field metadata.</p>
 <p>Arrays do not have Required/Optional presence - "set" is derived from <a class="el" href="classCrunch_1_1messages_1_1ArrayField.html#ad57252c722ee6da31bd3dd445bbc6703" title="Get the current number of elements.">size()</a> </p><blockquote class="doxtable">
 <p>&zwj;0. Use array-level validators like LengthAtLeast&lt;N&gt; instead. </p>
 </blockquote>
@@ -389,7 +386,7 @@ template&lt;FieldId Id, typename ElementType , std::size_t MaxSize, typename... 
 </table>
 </div><div class="memdoc">
 
-<p>Set array contents from another <a class="el" href="classCrunch_1_1messages_1_1ArrayField.html" title="Self-contained array field with storage, validation, and field metadata.">ArrayField</a>. </p>
+<p>Set array contents from another <a class="el" href="classCrunch_1_1messages_1_1ArrayField.html" title="Concept for valid element types within Field or ArrayField.">ArrayField</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>std::nullopt on success. </dd></dl>
 
 </div>
@@ -491,36 +488,6 @@ template&lt;FieldId Id, typename ElementType , std::size_t MaxSize, typename... 
 
 <p>Validates the array and its elements. </p>
 <dl class="section return"><dt>Returns</dt><dd>std::nullopt on success, or <a class="el" href="structCrunch_1_1Error.html" title="Represents an error occurred during Crunch operations.">Error</a> on validation failure. </dd></dl>
-
-</div>
-</div>
-<a id="ab6479311b834e8c0d6324da2ae911baa" name="ab6479311b834e8c0d6324da2ae911baa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab6479311b834e8c0d6324da2ae911baa">&#9670;&#160;</a></span>validate_presence()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;FieldId Id, typename ElementType , std::size_t MaxSize, typename... Validators&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr auto <a class="el" href="classCrunch_1_1messages_1_1ArrayField.html">Crunch::messages::ArrayField</a>&lt; Id, ElementType, MaxSize, Validators &gt;::validate_presence </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const -&gt; std::optional&lt;<a class="el" href="structCrunch_1_1Error.html">Error</a>&gt; </td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Arrays don't have presence validation - always returns nullopt. Use array validators (<a class="el" href="structCrunch_1_1LengthAtLeast.html" title="Validates that a container has at least N elements.">LengthAtLeast</a>, etc.) instead. </p>
-<dl class="section return"><dt>Returns</dt><dd>Always std::nullopt. </dd></dl>
 
 </div>
 </div>
