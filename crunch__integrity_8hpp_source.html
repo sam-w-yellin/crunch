@@ -99,81 +99,80 @@ $(document).ready(function(){initNavTree('crunch__integrity_8hpp_source.html',''
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;concepts&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;cstddef&gt;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;span&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceCrunch.html">Crunch</a> {</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;numeric&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;span&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Policy&gt;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="conceptCrunch_1_1IntegrityPolicy.html">   22</a></span><span class="keyword">concept </span><a class="code hl_concept" href="conceptCrunch_1_1IntegrityPolicy.html">IntegrityPolicy</a> = <span class="keyword">requires</span>(std::span&lt;const std::byte&gt; data) {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        std::bool_constant&lt;(Policy::size(), true)&gt;()</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    } -&gt; std::same_as&lt;std::true_type&gt;;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    { Policy::size() } -&gt; std::same_as&lt;std::size_t&gt;;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    {</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        std::bool_constant&lt;(Policy::calculate(std::span&lt;const std::byte&gt;{}),</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>                            <span class="keyword">true</span>)&gt;()</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    } -&gt; std::same_as&lt;std::true_type&gt;;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    {</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        Policy::calculate(data)</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    } -&gt; std::same_as&lt;std::array&lt;std::byte, Policy::size()&gt;&gt;;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>};</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="namespaceCrunch_1_1integrity.html">   40</a></span><span class="keyword">namespace </span>integrity {</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="structCrunch_1_1integrity_1_1None.html">   47</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structCrunch_1_1integrity_1_1None.html">None</a> {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    [[nodiscard]] <span class="keyword">static</span> <span class="keyword">constexpr</span> std::size_t size() <span class="keyword">noexcept</span> { <span class="keywordflow">return</span> 0; }</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    [[nodiscard]] <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> calculate(</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        std::span&lt;const std::byte&gt;) <span class="keyword">noexcept</span> -&gt; std::array&lt;std::byte, 0&gt; {</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordflow">return</span> {};</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    }</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>};</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="structCrunch_1_1integrity_1_1CRC16.html">   62</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structCrunch_1_1integrity_1_1CRC16.html">CRC16</a> {</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    [[nodiscard]] <span class="keyword">static</span> <span class="keyword">constexpr</span> std::size_t size() <span class="keyword">noexcept</span> { <span class="keywordflow">return</span> 2; }</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="structCrunch_1_1integrity_1_1CRC16.html#a7ad984115d7b5aa7d32edda699c05304">   70</a></span>    [[nodiscard]] <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> <a class="code hl_function" href="structCrunch_1_1integrity_1_1CRC16.html#a7ad984115d7b5aa7d32edda699c05304">calculate</a>(</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        std::span&lt;const std::byte&gt; data) <span class="keyword">noexcept</span> -&gt; std::array&lt;std::byte, 2&gt; {</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        uint16_t crc = 0xFFFF;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keywordflow">for</span> (std::byte b : data) {</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            crc ^= (<span class="keyword">static_cast&lt;</span>uint8_t<span class="keyword">&gt;</span>(b) &lt;&lt; 8);</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 8; i++) {</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                <span class="keywordflow">if</span> (crc &amp; 0x8000) {</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                    crc = <span class="keyword">static_cast&lt;</span>uint16_t<span class="keyword">&gt;</span>((crc &lt;&lt; 1) ^ 0x1021);</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                    crc = <span class="keyword">static_cast&lt;</span>uint16_t<span class="keyword">&gt;</span>(crc &lt;&lt; 1);</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>                }</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>            }</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        }</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="keywordflow">return</span> {<span class="keyword">static_cast&lt;</span>std::byte<span class="keyword">&gt;</span>((crc &gt;&gt; 8) &amp; 0xFF),</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>                <span class="keyword">static_cast&lt;</span>std::byte<span class="keyword">&gt;</span>(crc &amp; 0xFF)};</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    }</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>};</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="structCrunch_1_1integrity_1_1Parity.html">   93</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structCrunch_1_1integrity_1_1Parity.html">Parity</a> {</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    [[nodiscard]] <span class="keyword">static</span> <span class="keyword">constexpr</span> std::size_t size() <span class="keyword">noexcept</span> { <span class="keywordflow">return</span> 1; }</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="structCrunch_1_1integrity_1_1Parity.html#a686164ab888669276957d25c9433de50">  101</a></span>    [[nodiscard]] <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> <a class="code hl_function" href="structCrunch_1_1integrity_1_1Parity.html#a686164ab888669276957d25c9433de50">calculate</a>(</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        std::span&lt;const std::byte&gt; data) <span class="keyword">noexcept</span> -&gt; std::array&lt;std::byte, 1&gt; {</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        std::byte parity{0};</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keywordflow">for</span> (std::byte b : data) {</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            parity ^= b;</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        }</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="keywordflow">return</span> {parity};</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    }</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>};</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>}  <span class="comment">// namespace integrity</span></div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>}  <span class="comment">// namespace Crunch</span></div>
-<div class="ttc" id="aconceptCrunch_1_1IntegrityPolicy_html"><div class="ttname"><a href="conceptCrunch_1_1IntegrityPolicy.html">Crunch::IntegrityPolicy</a></div><div class="ttdoc">Concept defining the interface for message integrity policies.</div><div class="ttdef"><b>Definition:</b> crunch_integrity.hpp:22</div></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceCrunch.html">Crunch</a> {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Policy&gt;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="conceptCrunch_1_1IntegrityPolicy.html">   24</a></span><span class="keyword">concept </span><a class="code hl_concept" href="conceptCrunch_1_1IntegrityPolicy.html">IntegrityPolicy</a> = <span class="keyword">requires</span>(std::span&lt;const std::byte&gt; data) {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        std::bool_constant&lt;(Policy::size(), true)&gt;()</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    } -&gt; std::same_as&lt;std::true_type&gt;;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    { Policy::size() } -&gt; std::same_as&lt;std::size_t&gt;;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        std::bool_constant&lt;(Policy::calculate(std::span&lt;const std::byte&gt;{}),</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>                            <span class="keyword">true</span>)&gt;()</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    } -&gt; std::same_as&lt;std::true_type&gt;;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        Policy::calculate(data)</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    } -&gt; std::same_as&lt;std::array&lt;std::byte, Policy::size()&gt;&gt;;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>};</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="namespaceCrunch_1_1integrity.html">   42</a></span><span class="keyword">namespace </span>integrity {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="structCrunch_1_1integrity_1_1None.html">   49</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structCrunch_1_1integrity_1_1None.html">None</a> {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    [[nodiscard]] <span class="keyword">static</span> <span class="keyword">constexpr</span> std::size_t size() <span class="keyword">noexcept</span> { <span class="keywordflow">return</span> 0; }</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    [[nodiscard]] <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> calculate(</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        std::span&lt;const std::byte&gt;) <span class="keyword">noexcept</span> -&gt; std::array&lt;std::byte, 0&gt; {</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keywordflow">return</span> {};</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    }</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>};</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="structCrunch_1_1integrity_1_1CRC16.html">   64</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structCrunch_1_1integrity_1_1CRC16.html">CRC16</a> {</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    [[nodiscard]] <span class="keyword">static</span> <span class="keyword">constexpr</span> std::size_t size() <span class="keyword">noexcept</span> { <span class="keywordflow">return</span> 2; }</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="structCrunch_1_1integrity_1_1CRC16.html#a7ad984115d7b5aa7d32edda699c05304">   72</a></span>    [[nodiscard]] <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> <a class="code hl_function" href="structCrunch_1_1integrity_1_1CRC16.html#a7ad984115d7b5aa7d32edda699c05304">calculate</a>(</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        std::span&lt;const std::byte&gt; data) <span class="keyword">noexcept</span> -&gt; std::array&lt;std::byte, 2&gt; {</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        uint16_t crc = 0xFFFF;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordflow">for</span> (std::byte b : data) {</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            crc ^= (<span class="keyword">static_cast&lt;</span>uint8_t<span class="keyword">&gt;</span>(b) &lt;&lt; 8);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 8; i++) {</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                <span class="keywordflow">if</span> (crc &amp; 0x8000) {</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                    crc = <span class="keyword">static_cast&lt;</span>uint16_t<span class="keyword">&gt;</span>((crc &lt;&lt; 1) ^ 0x1021);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>                } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>                    crc = <span class="keyword">static_cast&lt;</span>uint16_t<span class="keyword">&gt;</span>(crc &lt;&lt; 1);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                }</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            }</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        }</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keywordflow">return</span> {<span class="keyword">static_cast&lt;</span>std::byte<span class="keyword">&gt;</span>((crc &gt;&gt; 8) &amp; 0xFF),</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                <span class="keyword">static_cast&lt;</span>std::byte<span class="keyword">&gt;</span>(crc &amp; 0xFF)};</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    }</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>};</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="structCrunch_1_1integrity_1_1Parity.html">   95</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structCrunch_1_1integrity_1_1Parity.html">Parity</a> {</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    [[nodiscard]] <span class="keyword">static</span> <span class="keyword">constexpr</span> std::size_t size() <span class="keyword">noexcept</span> { <span class="keywordflow">return</span> 1; }</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="structCrunch_1_1integrity_1_1Parity.html#a686164ab888669276957d25c9433de50">  103</a></span>    [[nodiscard]] <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> <a class="code hl_function" href="structCrunch_1_1integrity_1_1Parity.html#a686164ab888669276957d25c9433de50">calculate</a>(</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        std::span&lt;const std::byte&gt; data) <span class="keyword">noexcept</span> -&gt; std::array&lt;std::byte, 1&gt; {</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="keywordflow">return</span> {std::accumulate(data.begin(), data.end(), std::byte{0},</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                                std::bit_xor&lt;std::byte&gt;{})};</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    }</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>};</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>}  <span class="comment">// namespace integrity</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>}  <span class="comment">// namespace Crunch</span></div>
+<div class="ttc" id="aconceptCrunch_1_1IntegrityPolicy_html"><div class="ttname"><a href="conceptCrunch_1_1IntegrityPolicy.html">Crunch::IntegrityPolicy</a></div><div class="ttdoc">Concept defining the interface for message integrity policies.</div><div class="ttdef"><b>Definition:</b> crunch_integrity.hpp:24</div></div>
 <div class="ttc" id="anamespaceCrunch_html"><div class="ttname"><a href="namespaceCrunch.html">Crunch</a></div><div class="ttdoc">The public API for Crunch.</div><div class="ttdef"><b>Definition:</b> crunch.hpp:35</div></div>
-<div class="ttc" id="astructCrunch_1_1integrity_1_1CRC16_html"><div class="ttname"><a href="structCrunch_1_1integrity_1_1CRC16.html">Crunch::integrity::CRC16</a></div><div class="ttdoc">CRC-16-CCITT integrity policy.</div><div class="ttdef"><b>Definition:</b> crunch_integrity.hpp:62</div></div>
-<div class="ttc" id="astructCrunch_1_1integrity_1_1CRC16_html_a7ad984115d7b5aa7d32edda699c05304"><div class="ttname"><a href="structCrunch_1_1integrity_1_1CRC16.html#a7ad984115d7b5aa7d32edda699c05304">Crunch::integrity::CRC16::calculate</a></div><div class="ttdeci">static constexpr auto calculate(std::span&lt; const std::byte &gt; data) noexcept -&gt; std::array&lt; std::byte, 2 &gt;</div><div class="ttdoc">Calculates CRC-16-CCITT checksum.</div><div class="ttdef"><b>Definition:</b> crunch_integrity.hpp:70</div></div>
-<div class="ttc" id="astructCrunch_1_1integrity_1_1None_html"><div class="ttname"><a href="structCrunch_1_1integrity_1_1None.html">Crunch::integrity::None</a></div><div class="ttdoc">No-op integrity policy.</div><div class="ttdef"><b>Definition:</b> crunch_integrity.hpp:47</div></div>
-<div class="ttc" id="astructCrunch_1_1integrity_1_1Parity_html"><div class="ttname"><a href="structCrunch_1_1integrity_1_1Parity.html">Crunch::integrity::Parity</a></div><div class="ttdoc">Simple XOR parity integrity policy.</div><div class="ttdef"><b>Definition:</b> crunch_integrity.hpp:93</div></div>
-<div class="ttc" id="astructCrunch_1_1integrity_1_1Parity_html_a686164ab888669276957d25c9433de50"><div class="ttname"><a href="structCrunch_1_1integrity_1_1Parity.html#a686164ab888669276957d25c9433de50">Crunch::integrity::Parity::calculate</a></div><div class="ttdeci">static constexpr auto calculate(std::span&lt; const std::byte &gt; data) noexcept -&gt; std::array&lt; std::byte, 1 &gt;</div><div class="ttdoc">Calculates XOR parity.</div><div class="ttdef"><b>Definition:</b> crunch_integrity.hpp:101</div></div>
+<div class="ttc" id="astructCrunch_1_1integrity_1_1CRC16_html"><div class="ttname"><a href="structCrunch_1_1integrity_1_1CRC16.html">Crunch::integrity::CRC16</a></div><div class="ttdoc">CRC-16-CCITT integrity policy.</div><div class="ttdef"><b>Definition:</b> crunch_integrity.hpp:64</div></div>
+<div class="ttc" id="astructCrunch_1_1integrity_1_1CRC16_html_a7ad984115d7b5aa7d32edda699c05304"><div class="ttname"><a href="structCrunch_1_1integrity_1_1CRC16.html#a7ad984115d7b5aa7d32edda699c05304">Crunch::integrity::CRC16::calculate</a></div><div class="ttdeci">static constexpr auto calculate(std::span&lt; const std::byte &gt; data) noexcept -&gt; std::array&lt; std::byte, 2 &gt;</div><div class="ttdoc">Calculates CRC-16-CCITT checksum.</div><div class="ttdef"><b>Definition:</b> crunch_integrity.hpp:72</div></div>
+<div class="ttc" id="astructCrunch_1_1integrity_1_1None_html"><div class="ttname"><a href="structCrunch_1_1integrity_1_1None.html">Crunch::integrity::None</a></div><div class="ttdoc">No-op integrity policy.</div><div class="ttdef"><b>Definition:</b> crunch_integrity.hpp:49</div></div>
+<div class="ttc" id="astructCrunch_1_1integrity_1_1Parity_html"><div class="ttname"><a href="structCrunch_1_1integrity_1_1Parity.html">Crunch::integrity::Parity</a></div><div class="ttdoc">Simple XOR parity integrity policy.</div><div class="ttdef"><b>Definition:</b> crunch_integrity.hpp:95</div></div>
+<div class="ttc" id="astructCrunch_1_1integrity_1_1Parity_html_a686164ab888669276957d25c9433de50"><div class="ttname"><a href="structCrunch_1_1integrity_1_1Parity.html#a686164ab888669276957d25c9433de50">Crunch::integrity::Parity::calculate</a></div><div class="ttdeci">static constexpr auto calculate(std::span&lt; const std::byte &gt; data) noexcept -&gt; std::array&lt; std::byte, 1 &gt;</div><div class="ttdoc">Calculates XOR parity.</div><div class="ttdef"><b>Definition:</b> crunch_integrity.hpp:103</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
