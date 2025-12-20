@@ -437,6 +437,13 @@ requires IsBuffer&lt;BufferType&gt; &amp;&amp; messages::CrunchMessage&lt;Messag
 <li>Message must satisfy the CrunchMessage concept.</li>
 <li>BufferType::MessageType must be the same as Message.</li>
 </ul>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">BufferType</td><td>The <a class="el" href="structCrunch_1_1Buffer.html" title="A lightweight wrapper around a std::array for serializing/deserializing messages.">Buffer</a> type </td></tr>
+    <tr><td class="paramname">Message</td><td>The CrunchMessage type to deserialize into. </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">buffer</td><td>The source <a class="el" href="structCrunch_1_1Buffer.html" title="A lightweight wrapper around a std::array for serializing/deserializing messages.">Buffer</a> to read from. </td></tr>
@@ -576,6 +583,13 @@ requires IsBuffer&lt;BufferType&gt; &amp;&amp; messages::CrunchMessage&lt;Messag
 <li>Message must satisfy the CrunchMessage concept.</li>
 <li>BufferType::MessageType must be the same as Message.</li>
 </ul>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">BufferType</td><td>The <a class="el" href="structCrunch_1_1Buffer.html" title="A lightweight wrapper around a std::array for serializing/deserializing messages.">Buffer</a> type (deduced from buffer parameter). </td></tr>
+    <tr><td class="paramname">Message</td><td>The CrunchMessage type to serialize. </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">buffer</td><td>The destination <a class="el" href="structCrunch_1_1Buffer.html" title="A lightweight wrapper around a std::array for serializing/deserializing messages.">Buffer</a> (must match Message type). </td></tr>
@@ -626,6 +640,13 @@ requires IsBuffer&lt;BufferType&gt; &amp;&amp; messages::CrunchMessage&lt;Messag
 
 <p>Serializes a message into the provided buffer without validation. </p>
 <p>Does strictly serialization logic (header, payload, checksum) without running any validation checks. Useful for forwarding invalid messages, testing, or performance-critical paths where validation is done elsewhere.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">BufferType</td><td>The <a class="el" href="structCrunch_1_1Buffer.html" title="A lightweight wrapper around a std::array for serializing/deserializing messages.">Buffer</a> type </td></tr>
+    <tr><td class="paramname">Message</td><td>The CrunchMessage type to serialize. </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">buffer</td><td>The destination <a class="el" href="structCrunch_1_1Buffer.html" title="A lightweight wrapper around a std::array for serializing/deserializing messages.">Buffer</a> (must match Message type). </td></tr>
@@ -667,6 +688,12 @@ template&lt;messages::CrunchMessage Message&gt; </div>
 <dl class="section note"><dt>Note</dt><dd>This API does not execute field validators. Field validators are executed by the fields on-set.</dd>
 <dd>
 In the future, this will also validate submessages and run aggregate field validation.</dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Message</td><td>The CrunchMessage type to validate. </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">message</td><td>The message to validate. </td></tr>
