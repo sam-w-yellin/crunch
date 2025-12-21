@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Crunch: Main Page</title>
+<title>Crunch: Crunch</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -89,10 +89,161 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div>
 </div>
 
-<div class="header">
-  <div class="headertitle"><div class="title">Crunch Documentation</div></div>
+<div><div class="header">
+  <div class="headertitle"><div class="title"><a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a> </div></div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><p><a class="anchor" id="md_README"></a> <img src="crunch.png" alt="" class="inline" title="Crunch Logo"/>     <b><a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a></b> is a C++ message definition and serialization framework for mission-critical, resource-constrained systems where message semantics matter as much as structure.</p>
+<p>See the <a href="https://sam-w-yellin.github.io/crunch/">Doxygen</a> for API reference and detailed documentation.</p>
+<h1><a class="anchor" id="autotoc_md40"></a>
+Key Features</h1>
+<ul>
+<li><b>Opt-out validation:</b> Semantic field and cross-field validation are first-class, built-in, and happen by default.</li>
+<li><b>Static memory allocation:</b> For use in resource-constrained systems.</li>
+<li><b>Flexible serialization:</b> Swap serialization formats (e.g., TLV, static layout) without changing message definitions.</li>
+<li><b>Built-in integrity checks:</b> Support for CRC16 or parity is built-in.</li>
+<li><b>Zero exceptions:</b> Uses <code>std::expected</code> and <code>std::optional</code> for error handling to be compatible with real-time requirements.</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md41"></a>
+Dependencies</h1>
+<p><em><a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a></em> requires C++23 and uses some STL libraries.</p>
+<p><em>None of the STL libraries used by <a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a> perform dynamic memory allocation.</em></p>
+<h1><a class="anchor" id="autotoc_md42"></a>
+Installation</h1>
+<p><a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a> is a header-only library. You can vendor it directly or use a build system.</p>
+<h2><a class="anchor" id="autotoc_md43"></a>
+Vendoring</h2>
+<p>Copy the <code>include/</code> directory to your project:</p>
+<div class="fragment"><div class="line">cp -r crunch/include/ your_project/vendor/</div>
+</div><!-- fragment --><p>Then add the include path to your compiler: </p><div class="fragment"><div class="line">g++ -I vendor -std=c++23 your_code.cpp</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md44"></a>
+CMake</h2>
+<p>Add <a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a> as a subdirectory:</p>
+<div class="fragment"><div class="line">add_subdirectory(vendor/crunch)</div>
+<div class="line">target_link_libraries(your_target PRIVATE Crunch::crunch)</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md45"></a>
+Bazel</h2>
+<p>Add the dependency to your <code>BUILD</code> file:</p>
+<div class="fragment"><div class="line">cc_binary(</div>
+<div class="line">    name = <span class="stringliteral">&quot;your_target&quot;</span>,</div>
+<div class="line">    srcs = [<span class="stringliteral">&quot;main.cpp&quot;</span>],</div>
+<div class="line">    deps = [<span class="stringliteral">&quot;//include:crunch&quot;</span>],  <span class="comment"># Or @crunch//include:crunch if external</span></div>
+<div class="line">)</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md46"></a>
+Quick Start</h1>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;crunch/crunch.hpp&gt;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespaceCrunch.html">Crunch</a>;</div>
+<div class="line"><span class="keyword">using namespace </span>Crunch::fields;</div>
+<div class="line"><span class="keyword">using namespace </span>Crunch::messages;</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">struct </span>SensorReading {</div>
+<div class="line">    CRUNCH_MESSAGE_FIELDS(temperature, humidity);</div>
+<div class="line">    <span class="keyword">static</span> <span class="keyword">constexpr</span> <a class="code hl_typedef" href="namespaceCrunch.html#a66629eb87acf6767408e23678c44a48f">MessageId</a> message_id = 1;</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Temperature in Celsius, must be between -40 and 85</span></div>
+<div class="line">    <a class="code hl_class" href="classCrunch_1_1messages_1_1Field.html">Field</a>&lt;1, <a class="code hl_struct" href="structCrunch_1_1Required.html">Required</a>, <a class="code hl_class" href="classCrunch_1_1fields_1_1Scalar.html">Float32</a>&lt;InRange&lt;-40.0, 85.0&gt;&gt;&gt; temperature;</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// Humidity percentage, must be between 0 and 100</span></div>
+<div class="line">    <a class="code hl_class" href="classCrunch_1_1messages_1_1Field.html">Field</a>&lt;2, <a class="code hl_struct" href="structCrunch_1_1Required.html">Required</a>, <a class="code hl_class" href="classCrunch_1_1fields_1_1Scalar.html">Float32</a>&lt;InRange&lt;0.0, 100.0&gt;&gt;&gt; humidity;</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// Cross-field validation: high humidity requires moderate temperature</span></div>
+<div class="line">    <span class="keyword">constexpr</span> <span class="keyword">auto</span> Validate() const -&gt; std::optional&lt;<a class="code hl_struct" href="structCrunch_1_1Error.html">Error</a>&gt; {</div>
+<div class="line">        <span class="keywordflow">if</span> (*humidity.get() &gt; 90.0f &amp;&amp; *temperature.get() &gt; 50.0f) {</div>
+<div class="line">            <span class="keywordflow">return</span> Error::validation(2, <span class="stringliteral">&quot;humidity &gt; 90% invalid above 50C&quot;</span>);</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">return</span> std::nullopt;</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> SensorReading&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line">};</div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> main() {</div>
+<div class="line">    SensorReading msg;</div>
+<div class="line">    </div>
+<div class="line">    msg.temperature.set(23.5f);</div>
+<div class="line">    msg.humidity.set(65.0f);</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// Get a correctly-sized buffer for this message type</span></div>
+<div class="line">    <span class="keyword">auto</span> buffer = GetBuffer&lt;SensorReading, integrity::CRC16, serdes::PackedLayout&gt;();</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// Serialize (validates fields AND cross-field logic, then writes)</span></div>
+<div class="line">    <span class="keywordflow">if</span> (<span class="keyword">auto</span> err = <a class="code hl_function" href="namespaceCrunch.html#a8fceaeae24c854b2aee60248be1e3d7b">Serialize</a>(buffer, msg); err) {</div>
+<div class="line">        <span class="keywordflow">return</span> 1;</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// Deserialize into new object</span></div>
+<div class="line">    SensorReading decoded;</div>
+<div class="line">    <span class="keywordflow">if</span> (<span class="keyword">auto</span> err = <a class="code hl_function" href="namespaceCrunch.html#a5f01fac1ba3e33993b3442bde933211c">Deserialize</a>(buffer, decoded); err) {</div>
+<div class="line">        <span class="keywordflow">return</span> 1;</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    assert(msg == decoded);  <span class="comment">// Round-trip successful</span></div>
+<div class="line">}</div>
+<div class="ttc" id="aclassCrunch_1_1fields_1_1Scalar_html"><div class="ttname"><a href="classCrunch_1_1fields_1_1Scalar.html">Crunch::fields::Scalar</a></div><div class="ttdoc">A validated, typed message field.</div><div class="ttdef"><b>Definition:</b> crunch_scalar.hpp:24</div></div>
+<div class="ttc" id="aclassCrunch_1_1messages_1_1Field_html"><div class="ttname"><a href="classCrunch_1_1messages_1_1Field.html">Crunch::messages::Field</a></div><div class="ttdoc">Wrapper for a message field within a CrunchMessage.</div><div class="ttdef"><b>Definition:</b> crunch_field.hpp:50</div></div>
+<div class="ttc" id="anamespaceCrunch_html"><div class="ttname"><a href="namespaceCrunch.html">Crunch</a></div><div class="ttdoc">The public API for Crunch.</div><div class="ttdef"><b>Definition:</b> crunch_endian.hpp:10</div></div>
+<div class="ttc" id="anamespaceCrunch_html_a5f01fac1ba3e33993b3442bde933211c"><div class="ttname"><a href="namespaceCrunch.html#a5f01fac1ba3e33993b3442bde933211c">Crunch::Deserialize</a></div><div class="ttdeci">constexpr auto Deserialize(const BufferType &amp;buffer, Message &amp;out_message) -&gt; std::optional&lt; Error &gt;</div><div class="ttdoc">Deserializes a message from a buffer.</div><div class="ttdef"><b>Definition:</b> crunch.hpp:206</div></div>
+<div class="ttc" id="anamespaceCrunch_html_a66629eb87acf6767408e23678c44a48f"><div class="ttname"><a href="namespaceCrunch.html#a66629eb87acf6767408e23678c44a48f">Crunch::MessageId</a></div><div class="ttdeci">int32_t MessageId</div><div class="ttdoc">Unique identifier for a message type.</div><div class="ttdef"><b>Definition:</b> crunch_types.hpp:25</div></div>
+<div class="ttc" id="anamespaceCrunch_html_a8fceaeae24c854b2aee60248be1e3d7b"><div class="ttname"><a href="namespaceCrunch.html#a8fceaeae24c854b2aee60248be1e3d7b">Crunch::Serialize</a></div><div class="ttdeci">constexpr auto Serialize(BufferType &amp;buffer, const Message &amp;message) noexcept -&gt; std::optional&lt; Error &gt;</div><div class="ttdoc">Serializes a message into the provided buffer.</div><div class="ttdef"><b>Definition:</b> crunch.hpp:149</div></div>
+<div class="ttc" id="astructCrunch_1_1Error_html"><div class="ttname"><a href="structCrunch_1_1Error.html">Crunch::Error</a></div><div class="ttdoc">Represents an error occurred during Crunch operations.</div><div class="ttdef"><b>Definition:</b> crunch_types.hpp:75</div></div>
+<div class="ttc" id="astructCrunch_1_1Required_html"><div class="ttname"><a href="structCrunch_1_1Required.html">Crunch::Required</a></div><div class="ttdoc">Presence validator enforcing that a field MUST be set.</div><div class="ttdef"><b>Definition:</b> crunch_validators.hpp:35</div></div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md47"></a>
+Message Definition</h1>
+<p>Messages must define:</p><ol type="1">
+<li>A unique <code>MessageId</code></li>
+<li>A <code>CRUNCH_MESSAGE_FIELDS</code> macro listing all fields</li>
+<li>A <code>Validate</code> method returning <code>std::optional&lt;Error&gt;</code></li>
+<li>An <code>operator==</code> for equality comparison</li>
+</ol>
+<h2><a class="anchor" id="autotoc_md48"></a>
+Supported Field Types</h2>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Category   </th><th class="markdownTableHeadNone">Types    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Integers   </td><td class="markdownTableBodyNone"><code>Int8</code>, <code>Int16</code>, <code>Int32</code>, <code>Int64</code>, <code>UInt8</code>, <code>UInt16</code>, <code>UInt32</code>, <code>UInt64</code>    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Floats   </td><td class="markdownTableBodyNone"><code>Float32</code>, <code>Float64</code>    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Other   </td><td class="markdownTableBodyNone"><code>Bool</code>, <code>String</code>, <code>Enum</code>    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Aggregate   </td><td class="markdownTableBodyNone"><code>Submessage</code>, <code>Array</code>, <code>Map</code>   </td></tr>
+</table>
+<p>See <a class="el" href="field_types.html#md_docs_field_types">Field Types</a> for detailed examples of each type.</p>
+<h2><a class="anchor" id="autotoc_md49"></a>
+Validation Flow</h2>
+<p>When serializing or deserializing, validation occurs in order:</p><ol type="1">
+<li><b>Field Presence</b>: Checks that all <code>Required</code> fields are set.</li>
+<li><b>Field Values</b>: Checks that set fields satisfy their validators.</li>
+<li><b>Message Logic</b>: Executes the user-defined <code>Validate()</code> method.</li>
+</ol>
+<p>Validation can be bypassed using <code>SerializeWithoutValidation</code>.</p>
+<h1><a class="anchor" id="autotoc_md50"></a>
+Serialization</h1>
+<p><a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a> supports pluggable serialization:</p><ul>
+<li><code>serdes::StaticLayout&lt;Alignment&gt;</code> - Deterministic, fixed-size binary format</li>
+<li><code>serdes::TlvLayout</code> - Tag-Length-Value format for flexibility</li>
+</ul>
+<p>See <a class="el" href="serialization.html#md_docs_serialization">Serialization Formats</a> for wire format details.</p>
+<h1><a class="anchor" id="autotoc_md51"></a>
+Roadmap</h1>
+<p><b>Done:</b></p><ul>
+<li>Basic message definitions, field/message validation</li>
+<li>Scalar fields, enums, strings, submessages, arrays, maps</li>
+<li>Static layout and TLV serialization</li>
+<li>CRC16 and parity integrity checking</li>
+<li>Unit testing, documentation, CI/CD</li>
+</ul>
+<p><b>Upcoming:</b></p><ul>
+<li>Test coverage reporting</li>
+<li>QEMU-based cross-platform testing</li>
+<li>Fuzz testing</li>
+<li>Performance benchmarks</li>
+<li>C, Rust, Python bindings</li>
+</ul>
+<p>Follow along at <a href="https://volatileint.dev">volatileint.dev</a> for roadmap updates! </p>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
