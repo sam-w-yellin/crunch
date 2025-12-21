@@ -25,20 +25,20 @@
 var NAVTREE =
 [
   [ "Crunch", "index.html", [
-    [ "Key Features", "index.html#autotoc_md40", null ],
-    [ "Dependencies", "index.html#autotoc_md41", null ],
-    [ "Installation", "index.html#autotoc_md42", [
-      [ "Vendoring", "index.html#autotoc_md43", null ],
-      [ "CMake", "index.html#autotoc_md44", null ],
-      [ "Bazel", "index.html#autotoc_md45", null ]
+    [ "Key Features", "index.html#autotoc_md38", null ],
+    [ "Dependencies", "index.html#autotoc_md39", null ],
+    [ "Installation", "index.html#autotoc_md40", [
+      [ "Vendoring", "index.html#autotoc_md41", null ],
+      [ "CMake", "index.html#autotoc_md42", null ],
+      [ "Bazel", "index.html#autotoc_md43", null ]
     ] ],
-    [ "Quick Start", "index.html#autotoc_md46", null ],
-    [ "Message Definition", "index.html#autotoc_md47", [
-      [ "Supported Field Types", "index.html#autotoc_md48", null ],
-      [ "Validation Flow", "index.html#autotoc_md49", null ]
+    [ "Quick Start", "index.html#autotoc_md44", null ],
+    [ "Message Definition", "index.html#autotoc_md45", [
+      [ "Supported Field Types", "index.html#autotoc_md46", null ],
+      [ "Validation Flow", "index.html#autotoc_md47", null ]
     ] ],
-    [ "Serialization", "index.html#autotoc_md50", null ],
-    [ "Roadmap", "index.html#autotoc_md51", null ],
+    [ "Serialization", "index.html#autotoc_md48", null ],
+    [ "Roadmap", "index.html#autotoc_md49", null ],
     [ "Field Types", "field_types.html", [
       [ "Scalars", "field_types.html#autotoc_md0", null ],
       [ "Enums", "field_types.html#autotoc_md1", null ],
@@ -77,14 +77,11 @@ var NAVTREE =
         [ "Submessage Serialization (TLV)", "serialization.html#autotoc_md30", [
           [ "The \"Shifting\" Optimization", "serialization.html#autotoc_md31", null ]
         ] ],
-        [ "Array Serialization (TLV)", "serialization.html#autotoc_md32", [
-          [ "Packed Arrays (Scalars)", "serialization.html#autotoc_md33", null ],
-          [ "Repeated Arrays (Strings/Submessages)", "serialization.html#autotoc_md34", null ]
+        [ "Array Serialization (TLV)", "serialization.html#autotoc_md32", null ],
+        [ "Map Serialization (TLV)", "serialization.html#autotoc_md33", [
+          [ "Complex Keys and Values", "serialization.html#autotoc_md34", null ]
         ] ],
-        [ "Map Serialization (TLV)", "serialization.html#autotoc_md35", [
-          [ "Complex Keys and Values", "serialization.html#autotoc_md36", null ]
-        ] ],
-        [ "Size Comparison", "serialization.html#autotoc_md38", null ]
+        [ "Size Comparison", "serialization.html#autotoc_md36", null ]
       ] ]
     ] ],
     [ "Namespaces", "namespaces.html", [
@@ -118,7 +115,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"structCrunch_1_1messages_1_1field__value__type.html"
+"structCrunch_1_1messages_1_1is__array__field.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

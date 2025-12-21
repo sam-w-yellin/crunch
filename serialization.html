@@ -326,49 +326,50 @@ The "Shifting" Optimization</h3>
 <p>This avoids needing to calculate sizes in a separate pass.</p>
 <h2><a class="anchor" id="autotoc_md32"></a>
 Array Serialization (TLV)</h2>
-<p>Arrays use different encodings based on element type:</p>
-<h3><a class="anchor" id="autotoc_md33"></a>
-Packed Arrays (Scalars)</h3>
-<p>All scalar elements share a single tag and length:</p>
-<div class="fragment"><div class="line">[Tag][Length:1-10][Value1:1-10][Value2:1-10]...</div>
-</div><!-- fragment --><p>Example: <code>ArrayField&lt;1, Int32&lt;None&gt;, 5&gt;</code> with values <code>[1, 2, 3]</code>: </p><div class="fragment"><div class="line">[Tag:0x0A][Length:3][01][02][03]</div>
-</div><!-- fragment --><p>The same shifting optimization applies: we reserve 10 bytes for length, then shift content back if the actual varint is smaller.</p>
-<h3><a class="anchor" id="autotoc_md34"></a>
-Repeated Arrays (Strings/Submessages)</h3>
-<p>Each element gets its own tag:</p>
-<div class="fragment"><div class="line">[Tag][Element1][Tag][Element2]...</div>
-</div><!-- fragment --><p>Example: <code>ArrayField&lt;1, String&lt;32&gt;, 5&gt;</code> with values <code>["hi", "bye"]</code>: </p><div class="fragment"><div class="line">[Tag:0x0A][02]&quot;hi&quot;[Tag:0x0A][03]&quot;bye&quot;</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md35"></a>
-Map Serialization (TLV)</h2>
-<p>Each map entry is serialized as a length-delimited submessage:</p>
-<div class="fragment"><div class="line">[MapTag][EntryLength][KeyTag][KeyValue][ValueTag][ValueValue]</div>
-</div><!-- fragment --><p>Within each entry:</p><ul>
-<li>Key uses field ID = 1</li>
-<li>Value uses field ID = 2</li>
+<p>All arrays use a unified packed encoding with element count:</p>
+<div class="fragment"><div class="line">[Tag][TotalLength][Count][Elem1][Elem2]...</div>
+</div><!-- fragment --><ul>
+<li><b>Tag</b>: Field ID with WireType = LengthDelimited</li>
+<li><b>TotalLength</b>: Varint size of everything after this field</li>
+<li><b>Count</b>: Varint number of elements</li>
+<li><b>Elements</b>: Serialized values (no per-element tags)</li>
 </ul>
-<p>Example: <code>MapField&lt;1, String&lt;32&gt;, Int32&lt;None&gt;, 10&gt;</code> with <code>{"foo": 42}</code>: </p><div class="fragment"><div class="line">[MapTag:0x0A][EntryLength]</div>
-<div class="line">  [KeyTag:0x0A][03]&quot;foo&quot;</div>
-<div class="line">  [ValueTag:0x10][2A]</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md36"></a>
+<p>For length-delimited elements (strings, submessages), each element includes its length prefix:</p>
+<div class="fragment"><div class="line">[Tag][TotalLength][Count][Len1][String1][Len2][String2]...</div>
+</div><!-- fragment --><p>Example: <code>ArrayField&lt;1, Int32&lt;None&gt;, 5&gt;</code> with values <code>[1, 2, 3]</code>: </p><div class="fragment"><div class="line">[Tag:0x09][Len:4][Count:3][01][02][03]</div>
+</div><!-- fragment --><p>Example: <code>ArrayField&lt;1, String&lt;32&gt;, 5&gt;</code> with values <code>["hi", "bye"]</code>: </p><div class="fragment"><div class="line">[Tag:0x09][Len:10][Count:2][02]&quot;hi&quot;[03]&quot;bye&quot;</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md33"></a>
+Map Serialization (TLV)</h2>
+<p>Maps use packed encoding with entry count:</p>
+<div class="fragment"><div class="line">[Tag][TotalLength][Count][Key1][Value1][Key2][Value2]...</div>
+</div><!-- fragment --><ul>
+<li><b>Tag</b>: Field ID with WireType = LengthDelimited</li>
+<li><b>TotalLength</b>: Varint size of map content</li>
+<li><b>Count</b>: Varint number of entries</li>
+<li><b>Key/Value pairs</b>: Serialized values without tags</li>
+</ul>
+<p>For length-delimited keys/values, each includes its length prefix.</p>
+<p>Example: <code>MapField&lt;1, Int32&lt;None&gt;, String&lt;32&gt;, 10&gt;</code> with <code>{42: "foo"}</code>: </p><div class="fragment"><div class="line">[Tag:0x09][Len:6][Count:1][2A][03]&quot;foo&quot;</div>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md34"></a>
 Complex Keys and Values</h3>
 <p>Maps support any field type as keys or values:</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Entry Type   </th><th class="markdownTableHeadNone">Encoding    </th></tr>
+<th class="markdownTableHeadNone">Entry Type   </th><th class="markdownTableHeadNone">Encoding (no tag)    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Scalar   </td><td class="markdownTableBodyNone">Varint (WireType 0)    </td></tr>
+<td class="markdownTableBodyNone">Scalar   </td><td class="markdownTableBodyNone">Varint    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">String   </td><td class="markdownTableBodyNone">LengthDelimited (WireType 1)    </td></tr>
+<td class="markdownTableBodyNone">String   </td><td class="markdownTableBodyNone">[Length][Data]    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Submessage   </td><td class="markdownTableBodyNone">LengthDelimited with nested fields    </td></tr>
+<td class="markdownTableBodyNone">Submessage   </td><td class="markdownTableBodyNone">[Length][NestedFields...]    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Array   </td><td class="markdownTableBodyNone">LengthDelimited (packed or repeated)    </td></tr>
+<td class="markdownTableBodyNone">Array   </td><td class="markdownTableBodyNone">[Length][Count][Elements...]    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Nested Map   </td><td class="markdownTableBodyNone">LengthDelimited with nested entries   </td></tr>
+<td class="markdownTableBodyNone">Nested Map   </td><td class="markdownTableBodyNone">[Length][Count][Pairs...]   </td></tr>
 </table>
-<p>Each nested container applies the same shifting optimization for its length prefix.</p>
+<p>Each nested container uses the same packed format.</p>
 <hr  />
-<h2><a class="anchor" id="autotoc_md38"></a>
+<h2><a class="anchor" id="autotoc_md36"></a>
 Size Comparison</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -382,7 +383,7 @@ Size Comparison</h2>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><code>TlvLayout</code>   </td><td class="markdownTableBodyNone">Variable(*)   </td><td class="markdownTableBodyNone">Most compact(*)   </td><td class="markdownTableBodyNone">Evolved protocols, bandwidth-constrained   </td></tr>
 </table>
-<p>(*) While the final encoding is variable, the maximum size of a message is fixed at compile time, and no dynamic memory allocation is required. (*) TlvLayout is not the most compact for all data due to the varint encoding. For example, very large integers require more space than a fixed-size encoding. </p>
+<p>(*) For any given message type, the encoding is variable <em>up to a statically determinable maximum size</em>. No dynamic memory allocation is required. (*) TlvLayout is not the most compact for all data due to the varint encoding. For example, very large integers require more space than a fixed-size encoding. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

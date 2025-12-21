@@ -99,7 +99,7 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 Crunch Logo</div></div>
     <p><b><a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a></b> is a C++ message definition and serialization framework for mission-critical, resource-constrained systems where message semantics matter as much as structure.</p>
 <p>See the <a href="https://sam-w-yellin.github.io/crunch/">Doxygen</a> for API reference and detailed documentation.</p>
-<h1><a class="anchor" id="autotoc_md40"></a>
+<h1><a class="anchor" id="autotoc_md38"></a>
 Key Features</h1>
 <ul>
 <li><b>Opt-out validation:</b> Semantic field and cross-field validation are first-class, built-in, and happen by default.</li>
@@ -108,24 +108,24 @@ Key Features</h1>
 <li><b>Built-in integrity checks:</b> Support for CRC16 or parity is built-in.</li>
 <li><b>Zero exceptions:</b> Uses <code>std::expected</code> and <code>std::optional</code> for error handling to be compatible with real-time requirements.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md41"></a>
+<h1><a class="anchor" id="autotoc_md39"></a>
 Dependencies</h1>
 <p><em><a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a></em> requires C++23 and uses some STL libraries.</p>
 <p><em>None of the STL libraries used by <a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a> perform dynamic memory allocation.</em></p>
-<h1><a class="anchor" id="autotoc_md42"></a>
+<h1><a class="anchor" id="autotoc_md40"></a>
 Installation</h1>
 <p><a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a> is a header-only library. You can vendor it directly or use a build system.</p>
-<h2><a class="anchor" id="autotoc_md43"></a>
+<h2><a class="anchor" id="autotoc_md41"></a>
 Vendoring</h2>
 <p>Copy the <code>include/</code> directory to your project:</p>
 <div class="fragment"><div class="line">cp -r crunch/include/ your_project/vendor/</div>
 </div><!-- fragment --><p>Then add the include path to your compiler: </p><div class="fragment"><div class="line">g++ -I vendor -std=c++23 your_code.cpp</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md44"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md42"></a>
 CMake</h2>
 <p>Add <a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a> as a subdirectory:</p>
 <div class="fragment"><div class="line">add_subdirectory(vendor/crunch)</div>
 <div class="line">target_link_libraries(your_target PRIVATE Crunch::crunch)</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md45"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md43"></a>
 Bazel</h2>
 <p>Add the dependency to your <code>BUILD</code> file:</p>
 <div class="fragment"><div class="line">cc_binary(</div>
@@ -133,7 +133,7 @@ Bazel</h2>
 <div class="line">    srcs = [<span class="stringliteral">&quot;main.cpp&quot;</span>],</div>
 <div class="line">    deps = [<span class="stringliteral">&quot;//include:crunch&quot;</span>],  <span class="comment"># Or @crunch//include:crunch if external</span></div>
 <div class="line">)</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md46"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md44"></a>
 Quick Start</h1>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;crunch/crunch.hpp&gt;</span></div>
 <div class="line"> </div>
@@ -192,7 +192,7 @@ Quick Start</h1>
 <div class="ttc" id="anamespaceCrunch_html_a8fceaeae24c854b2aee60248be1e3d7b"><div class="ttname"><a href="namespaceCrunch.html#a8fceaeae24c854b2aee60248be1e3d7b">Crunch::Serialize</a></div><div class="ttdeci">constexpr auto Serialize(BufferType &amp;buffer, const Message &amp;message) noexcept -&gt; std::optional&lt; Error &gt;</div><div class="ttdoc">Serializes a message into the provided buffer.</div><div class="ttdef"><b>Definition:</b> crunch.hpp:149</div></div>
 <div class="ttc" id="astructCrunch_1_1Error_html"><div class="ttname"><a href="structCrunch_1_1Error.html">Crunch::Error</a></div><div class="ttdoc">Represents an error occurred during Crunch operations.</div><div class="ttdef"><b>Definition:</b> crunch_types.hpp:75</div></div>
 <div class="ttc" id="astructCrunch_1_1Required_html"><div class="ttname"><a href="structCrunch_1_1Required.html">Crunch::Required</a></div><div class="ttdoc">Presence validator enforcing that a field MUST be set.</div><div class="ttdef"><b>Definition:</b> crunch_validators.hpp:35</div></div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md47"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md45"></a>
 Message Definition</h1>
 <p>Messages must define:</p><ol type="1">
 <li>A unique <code>MessageId</code></li>
@@ -200,7 +200,7 @@ Message Definition</h1>
 <li>A <code>Validate</code> method returning <code>std::optional&lt;Error&gt;</code></li>
 <li>An <code>operator==</code> for equality comparison</li>
 </ol>
-<h2><a class="anchor" id="autotoc_md48"></a>
+<h2><a class="anchor" id="autotoc_md46"></a>
 Supported Field Types</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -215,7 +215,7 @@ Supported Field Types</h2>
 <td class="markdownTableBodyNone">Aggregate   </td><td class="markdownTableBodyNone"><code>Submessage</code>, <code>Array</code>, <code>Map</code>   </td></tr>
 </table>
 <p>See <a class="el" href="field_types.html#md_docs_field_types">Field Types</a> for detailed examples of each type.</p>
-<h2><a class="anchor" id="autotoc_md49"></a>
+<h2><a class="anchor" id="autotoc_md47"></a>
 Validation Flow</h2>
 <p>When serializing or deserializing, validation occurs in order:</p><ol type="1">
 <li><b>Field Presence</b>: Checks that all <code>Required</code> fields are set.</li>
@@ -223,14 +223,14 @@ Validation Flow</h2>
 <li><b>Message Logic</b>: Executes the user-defined <code>Validate()</code> method.</li>
 </ol>
 <p>Validation can be bypassed using <code>SerializeWithoutValidation</code>.</p>
-<h1><a class="anchor" id="autotoc_md50"></a>
+<h1><a class="anchor" id="autotoc_md48"></a>
 Serialization</h1>
 <p><a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a> supports pluggable serialization:</p><ul>
 <li><code>serdes::StaticLayout&lt;Alignment&gt;</code> - Deterministic, fixed-size binary format</li>
 <li><code>serdes::TlvLayout</code> - Tag-Length-Value format for flexibility</li>
 </ul>
 <p>See <a class="el" href="serialization.html#md_docs_serialization">Serialization Formats</a> for wire format details.</p>
-<h1><a class="anchor" id="autotoc_md51"></a>
+<h1><a class="anchor" id="autotoc_md49"></a>
 Roadmap</h1>
 <p><b>Done:</b></p><ul>
 <li>Basic message definitions, field/message validation</li>
