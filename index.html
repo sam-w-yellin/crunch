@@ -171,12 +171,12 @@ Quick Start</h1>
 <div class="line">    <span class="comment">// Get a correctly-sized buffer for this message type</span></div>
 <div class="line">    <span class="keyword">auto</span> buffer = GetBuffer&lt;SensorReading, integrity::CRC16, serdes::PackedLayout&gt;();</div>
 <div class="line">    </div>
-<div class="line">    <span class="comment">// Serialize (validates fields AND cross-field logic, then writes)</span></div>
+<div class="line">    <span class="comment">// Serialize (validates fields AND cross-field logic, calculates and appends integrity check, then writes)</span></div>
 <div class="line">    <span class="keywordflow">if</span> (<span class="keyword">auto</span> err = <a class="code hl_function" href="namespaceCrunch.html#a8fceaeae24c854b2aee60248be1e3d7b">Serialize</a>(buffer, msg); err) {</div>
 <div class="line">        <span class="keywordflow">return</span> 1;</div>
 <div class="line">    }</div>
 <div class="line">    </div>
-<div class="line">    <span class="comment">// Deserialize into new object</span></div>
+<div class="line">    <span class="comment">// Deserialize into new object. Checks integrity and validates fields AND cross-field logic.</span></div>
 <div class="line">    SensorReading decoded;</div>
 <div class="line">    <span class="keywordflow">if</span> (<span class="keyword">auto</span> err = <a class="code hl_function" href="namespaceCrunch.html#a5f01fac1ba3e33993b3442bde933211c">Deserialize</a>(buffer, decoded); err) {</div>
 <div class="line">        <span class="keywordflow">return</span> 1;</div>
