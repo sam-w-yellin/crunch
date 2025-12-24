@@ -46,8 +46,7 @@ struct StaticLayout {
      */
     template <typename Message>
     [[nodiscard]] static constexpr std::size_t Size() noexcept {
-        return PayloadStartOffset + sizeof(MessageId) +
-               calculate_payload_size(Message{});
+        return PayloadStartOffset + calculate_payload_size(Message{});
     }
 
     /**
@@ -60,17 +59,13 @@ struct StaticLayout {
     template <typename Message>
     static constexpr std::size_t Serialize(
         const Message& msg, std::span<std::byte> output) noexcept {
-        std::size_t offset = StandardHeaderSize;
+        // Header (including MessageId) is written by top-level serializer
+        // Zero-fill any alignment padding between header and payload start
         if (PayloadStartOffset > StandardHeaderSize) {
-            std::memset(output.data() + offset, 0,
+            std::memset(output.data() + StandardHeaderSize, 0,
                         PayloadStartOffset - StandardHeaderSize);
         }
-        offset = PayloadStartOffset;
-
-        const MessageId msgId = Message::message_id;
-        const MessageId le_msgId = Crunch::LittleEndian(msgId);
-        std::memcpy(output.data() + offset, &le_msgId, sizeof(msgId));
-        offset += sizeof(msgId);
+        std::size_t offset = PayloadStartOffset;
 
         std::apply(
             [&](const auto&... fields) {
@@ -91,15 +86,8 @@ struct StaticLayout {
     [[nodiscard]] static constexpr auto Deserialize(
         std::span<const std::byte> input, Message& msg) noexcept
         -> std::optional<Error> {
+        // Header (including MessageId) validated by top-level deserializer
         std::size_t offset = PayloadStartOffset;
-
-        MessageId msg_id;
-        std::memcpy(&msg_id, input.data() + offset, sizeof(MessageId));
-        msg_id = Crunch::LittleEndian(msg_id);
-        if (msg_id != Message::message_id) {
-            return Error::invalid_message_id();
-        }
-        offset += sizeof(MessageId);
 
         std::optional<Error> err = std::nullopt;
         std::apply(

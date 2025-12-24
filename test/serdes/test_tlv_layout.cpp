@@ -34,31 +34,36 @@ struct TestMessage {
 
 static constexpr std::size_t BufferSize = 128;
 
-// Helper to create a basic valid serialization of TestMessage
-// 4 byte header + 4 byte len + payload
+// Helper to create a basic valid serialization of a message
+// StandardHeaderSize + 4 byte len + payload
+template <MessageId MsgId>
 std::vector<std::byte> create_valid_message_buffer(
     const std::vector<std::byte>& payload) {
     std::vector<std::byte> buffer;
 
-    // TlvLayout::Deserialize expects the buffer to start with
-    // StandardHeaderSize bytes, followed by a 4-byte length.
-    buffer.resize(Crunch::StandardHeaderSize + sizeof(uint32_t) +
-                  payload.size());
+    // TlvLayout::Deserialize expects:
+    // [Version(1B)][Format(1B)][MessageId(4B)][PayloadLen(4B)][Payload...]
+    // StandardHeaderSize = 6 bytes (Version + Format + MessageId)
+    constexpr std::size_t len_offset = Crunch::StandardHeaderSize;
+    buffer.resize(len_offset + sizeof(uint32_t) + payload.size());
     std::fill(buffer.begin(), buffer.end(), std::byte{0});
+
+    // Write Message ID at offset 2 (after Version and Format)
+    constexpr std::size_t msg_id_offset =
+        sizeof(Crunch::CrunchVersionId) + sizeof(Crunch::Format);
+    MessageId msg_id = Crunch::LittleEndian(MsgId);
+    std::memcpy(buffer.data() + msg_id_offset, &msg_id, sizeof(MessageId));
 
     // Write length
     uint32_t len = static_cast<uint32_t>(payload.size());
-    buffer[Crunch::StandardHeaderSize] = static_cast<std::byte>(len & 0xFF);
-    buffer[Crunch::StandardHeaderSize + 1] =
-        static_cast<std::byte>((len >> 8) & 0xFF);
-    buffer[Crunch::StandardHeaderSize + 2] =
-        static_cast<std::byte>((len >> 16) & 0xFF);
-    buffer[Crunch::StandardHeaderSize + 3] =
-        static_cast<std::byte>((len >> 24) & 0xFF);
+    buffer[len_offset] = static_cast<std::byte>(len & 0xFF);
+    buffer[len_offset + 1] = static_cast<std::byte>((len >> 8) & 0xFF);
+    buffer[len_offset + 2] = static_cast<std::byte>((len >> 16) & 0xFF);
+    buffer[len_offset + 3] = static_cast<std::byte>((len >> 24) & 0xFF);
 
     // Copy payload
     std::copy(payload.begin(), payload.end(),
-              buffer.begin() + Crunch::StandardHeaderSize + sizeof(uint32_t));
+              buffer.begin() + len_offset + sizeof(uint32_t));
 
     return buffer;
 }
@@ -71,7 +76,7 @@ TEST_CASE("TLV: deserializing a message with an unknown field ID", "[tlv]") {
     // Tag = (5 << 3) | 0 = 40 = 0x28
     std::vector<std::byte> payload = {std::byte{0x28}, std::byte{0x01}};
 
-    auto buffer = create_valid_message_buffer(payload);
+    auto buffer = create_valid_message_buffer<TestMessage::message_id>(payload);
 
     auto err = TlvLayout::Deserialize(std::span{buffer}, msg);
     REQUIRE(err.has_value());
@@ -89,7 +94,7 @@ TEST_CASE("TLV: deserializing a message with a repeated field ID", "[tlv]") {
     std::vector<std::byte> payload = {std::byte{0x08}, std::byte{10},
                                       std::byte{0x08}, std::byte{20}};
 
-    auto buffer = create_valid_message_buffer(payload);
+    auto buffer = create_valid_message_buffer<TestMessage::message_id>(payload);
 
     // Should succeed (last wins)
     auto err = TlvLayout::Deserialize(std::span{buffer}, msg);
@@ -108,7 +113,7 @@ TEST_CASE("TLV: deserializing with truncated varint", "[tlv]") {
     // But payload ends there.
     std::vector<std::byte> payload = {std::byte{0x08}, std::byte{0x80}};
 
-    auto buffer = create_valid_message_buffer(payload);
+    auto buffer = create_valid_message_buffer<TestMessage::message_id>(payload);
 
     auto err = TlvLayout::Deserialize(std::span{buffer}, msg);
     REQUIRE(err.has_value());
@@ -124,7 +129,7 @@ TEST_CASE("TLV: Serialize unset field", "[tlv]") {
     std::size_t offset = TlvLayout::Serialize(msg, buffer);
 
     // Inspect buffer
-    // Skip header and length
+    // Skip header and length prefix
     std::size_t payload_start = Crunch::StandardHeaderSize + sizeof(uint32_t);
     std::span<std::byte> payload =
         std::span{buffer}.subspan(payload_start, offset - payload_start);
@@ -149,7 +154,8 @@ TEST_CASE("TLV: Partial deserialization (Required vs Optional)", "[tlv]") {
         TestMessage msg;
         // Payload has only ID=2 (req_int)
         std::vector<std::byte> payload = {std::byte{0x10}, std::byte{42}};
-        auto buffer = create_valid_message_buffer(payload);
+        auto buffer =
+            create_valid_message_buffer<TestMessage::message_id>(payload);
 
         auto err = TlvLayout::Deserialize(std::span{buffer}, msg);
         REQUIRE(!err.has_value());
@@ -167,7 +173,8 @@ TEST_CASE("TLV: Partial deserialization (Required vs Optional)", "[tlv]") {
         // Payload has ONLY ID=1 (opt_int), missing ID=2 (req_int)
         // Tag(1, Varint) = 0x08, Value=10
         std::vector<std::byte> payload = {std::byte{0x08}, std::byte{10}};
-        auto buffer = create_valid_message_buffer(payload);
+        auto buffer =
+            create_valid_message_buffer<TestMessage::message_id>(payload);
 
         auto err = TlvLayout::Deserialize(std::span{buffer}, msg);
 
@@ -202,7 +209,8 @@ TEST_CASE("TLV: Field ID 0", "[tlv]") {
     // Tag = (0 << 3) | 0 = 0x00
     std::vector<std::byte> payload = {std::byte{0x00}, std::byte{0x7B}};
 
-    auto buffer = create_valid_message_buffer(payload);
+    auto buffer =
+        create_valid_message_buffer<MessageWithZeroId::message_id>(payload);
 
     auto err = TlvLayout::Deserialize(std::span{buffer}, msg);
     REQUIRE(!err.has_value());
@@ -219,7 +227,7 @@ TEST_CASE("TLV: Unknown Wire Type", "[tlv]") {
     // Tag = (1 << 3) | 7 = 8 | 7 = 15 = 0x0F
     std::vector<std::byte> payload = {std::byte{0x0F}, std::byte{10}};
 
-    auto buffer = create_valid_message_buffer(payload);
+    auto buffer = create_valid_message_buffer<TestMessage::message_id>(payload);
 
     auto err = TlvLayout::Deserialize(std::span{buffer}, msg);
     REQUIRE(err.has_value());
@@ -234,7 +242,7 @@ TEST_CASE("TLV: Payload Length Exceeds Buffer", "[tlv]") {
     // Tag = 0x10, Value=0x2A
     std::vector<std::byte> payload = {std::byte{0x10}, std::byte{0x2A}};
 
-    auto buffer = create_valid_message_buffer(payload);
+    auto buffer = create_valid_message_buffer<TestMessage::message_id>(payload);
 
     // Manually increase the declared length in the header
     std::size_t len_offset = Crunch::StandardHeaderSize;
@@ -270,7 +278,7 @@ TEST_CASE("TLV: Packed Array Field", "[tlv]") {
     // Value 2 = 20
     payload.push_back(std::byte{20});
 
-    auto buffer = create_valid_message_buffer(payload);
+    auto buffer = create_valid_message_buffer<TestMessage::message_id>(payload);
 
     auto err = TlvLayout::Deserialize(std::span{buffer}, msg);
     REQUIRE(!err.has_value());
@@ -298,7 +306,7 @@ TEST_CASE("TLV: Array count too high (underflow)", "[tlv][error]") {
     payload.push_back(std::byte{10});
     payload.push_back(std::byte{20});
 
-    auto buffer = create_valid_message_buffer(payload);
+    auto buffer = create_valid_message_buffer<TestMessage::message_id>(payload);
     auto err = TlvLayout::Deserialize(std::span{buffer}, msg);
     REQUIRE(err.has_value());
     // Should fail trying to read more elements than available
@@ -317,7 +325,7 @@ TEST_CASE("TLV: Array length too short (truncated content)", "[tlv][error]") {
     // Only 1 value fits in the declared length
     payload.push_back(std::byte{10});
 
-    auto buffer = create_valid_message_buffer(payload);
+    auto buffer = create_valid_message_buffer<TestMessage::message_id>(payload);
     auto err = TlvLayout::Deserialize(std::span{buffer}, msg);
     REQUIRE(err.has_value());
 }
@@ -346,7 +354,8 @@ TEST_CASE("TLV: Map count too high (underflow)", "[tlv][error]") {
     payload.push_back(std::byte{1});
     payload.push_back(std::byte{2});
 
-    auto buffer = create_valid_message_buffer(payload);
+    auto buffer =
+        create_valid_message_buffer<MapTestMessage::message_id>(payload);
     auto err = TlvLayout::Deserialize(std::span{buffer}, msg);
     REQUIRE(err.has_value());
 }
@@ -364,7 +373,8 @@ TEST_CASE("TLV: Map length too short (truncated content)", "[tlv][error]") {
     // Only key, no value
     payload.push_back(std::byte{1});
 
-    auto buffer = create_valid_message_buffer(payload);
+    auto buffer =
+        create_valid_message_buffer<MapTestMessage::message_id>(payload);
     auto err = TlvLayout::Deserialize(std::span{buffer}, msg);
     REQUIRE(err.has_value());
 }

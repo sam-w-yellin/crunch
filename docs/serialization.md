@@ -8,12 +8,13 @@ Crunch supports pluggable serialization layouts. This document provides comprehe
 
 ## Common Header
 
-Every message includes a 2-byte header before the payload:
+Every message includes a 6-byte header before the payload:
 
 | Offset | Field | Size | Description |
 |--------|-------|------|-------------|
-| 0 | Version | 1 byte | Protocol version (`0x00`) |
+| 0 | Version | 1 byte | Protocol version (`0x02`) |
 | 1 | Format | 1 byte | Serialization format identifier |
+| 2 | MessageId | 4 bytes | Message type identifier (little-endian) |
 
 **Format Values:**
 - `0x01`: Packed (Alignment = 1)
@@ -52,15 +53,15 @@ This means:
 
 ## Payload Start
 
-After the 2-byte header, the payload is aligned to `Alignment`:
+After the 6-byte header, the payload is aligned to `Alignment`:
 
 | Alignment | Header End | Padding | Payload Start |
 |-----------|------------|---------|---------------|
-| 1 | 2 | 0 | 2 |
-| 4 | 2 | 2 | 4 |
-| 8 | 2 | 6 | 8 |
+| 1 | 6 | 0 | 6 |
+| 4 | 6 | 2 | 8 |
+| 8 | 6 | 2 | 8 |
 
-The payload begins with a 4-byte **Message ID** (little-endian).
+The fields begin immediately at the payload start offset.
 
 ## Scalar Serialization
 
@@ -88,15 +89,15 @@ For each scalar field:
 
 ### Example: Bool + Int64 with Alignment=8
 
-Offset 0 is start of payload (after message ID at offset 8).
+Offset 0 is start of payload (at offset 8 after header).
 
 | Offset | Content | Description |
 |--------|---------|-------------|
-| 12 | `f1` is_set | 1 byte |
-| 13 | **No padding** | Bool aligns to 1 |
-| 13 | `f1` Bool value | 1 byte |
-| 14 | `f2` is_set | 1 byte |
-| 15-15 | **Padding** | 1 byte to align Int64 to offset 16 (8-byte boundary) |
+| 8 | `f1` is_set | 1 byte |
+| 9 | **No padding** | Bool aligns to 1 |
+| 9 | `f1` Bool value | 1 byte |
+| 10 | `f2` is_set | 1 byte |
+| 11-15 | **Padding** | 5 bytes to align Int64 to offset 16 (8-byte boundary) |
 | 16-23 | `f2` Int64 value | 8 bytes |
 
 ## String Serialization
@@ -172,11 +173,11 @@ Where `key` and `value` are serialized according to their type (scalar, string, 
 ## Overall Structure
 
 ```
-[Header:2][PayloadLength:4][Fields...]
+[Header:6][PayloadLength:4][Fields...]
 ```
 
-After the 2-byte header:
-1. **Payload Length** (4 bytes, little-endian): Total size of all fields
+After the 6-byte header:
+1. **Payload Length** (4 bytes, little-endian): Total size of all TLV-encoded fields
 2. **Fields**: Variable-size field encodings
 
 ## Wire Types

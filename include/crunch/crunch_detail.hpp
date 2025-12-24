@@ -1,17 +1,66 @@
 #pragma once
 
 #include <crunch/core/crunch_endian.hpp>
+#include <crunch/core/crunch_header.hpp>
 #include <crunch/integrity/crunch_integrity.hpp>
 #include <crunch/messages/crunch_messages.hpp>
 #include <crunch/serdes/crunch_serdes.hpp>
 #include <crunch/serdes/crunch_static_layout.hpp>
 #include <cstddef>
 #include <cstring>
-
+#include <span>
+#include <variant>
 /**
  * @brief Internal implementation details for Crunch's public API.
  */
 namespace Crunch::detail {
+
+/**
+ * @brief A lightweight wrapper around a std::array for
+ * serializing/deserializing messages.
+ *
+ * Encodes the Message, Integrity, and Serdes types, and provides a span
+ * interface to the underlying data.
+ *
+ * @tparam Message The CrunchMessage type this buffer is for.
+ * @tparam Integrity The IntegrityPolicy used.
+ * @tparam Serdes The SerdesPolicy used.
+ * @tparam N The size of the buffer in bytes.
+ */
+template <typename Message, typename Integrity, typename Serdes, std::size_t N>
+struct Buffer {
+    using MessageType = Message;
+    using IntegrityType = Integrity;
+    using SerdesType = Serdes;
+
+    // cppcheck-suppress unusedStructMember
+    static constexpr std::size_t Size = N;
+
+    std::array<std::byte, N> data;
+    std::size_t used_bytes{0};
+
+    [[nodiscard]] constexpr auto span() noexcept {
+        return std::span<std::byte, N>{data};
+    }
+    [[nodiscard]] constexpr auto span() const noexcept {
+        return std::span<const std::byte, N>{data};
+    }
+
+    [[nodiscard]] constexpr auto serialized_message_span() const noexcept {
+        return std::span<const std::byte>{data.data(), used_bytes};
+    }
+};
+
+namespace detail {
+template <typename T>
+struct is_buffer : std::false_type {};
+
+template <typename Message, typename Integrity, typename Serdes, std::size_t N>
+struct is_buffer<Buffer<Message, Integrity, Serdes, N>> : std::true_type {};
+}  // namespace detail
+
+template <typename T>
+concept IsBuffer = detail::is_buffer<T>::value;
 
 /**
  * @brief Compile-time calculation of the size of a buffer for a given message,
@@ -130,19 +179,13 @@ template <typename Integrity, typename Serdes, messages::CrunchMessage Message,
 
     std::span<std::byte, PayloadSize> payload_span(buffer.data(), PayloadSize);
 
-    // 1a. Write Header
-    const CrunchVersionId version = CrunchVersion;
-    std::memcpy(payload_span.data(), &version, sizeof(version));
+    // Write Header
+    WriteHeader<Message, Serdes>(payload_span);
 
-    const Crunch::Format format = Serdes::GetFormat();
-    std::memcpy(payload_span.data() + sizeof(version), &format, sizeof(format));
-
-    // 1b. Serialize Payload (Serdes policy executes logic on full span)
-    // Serdes expected to handle MessageID if needed (yes, implementation plan
-    // says Serdes writes it).
+    // Serialize Payload (Serdes policy executes logic on full span)
     const std::size_t bytes_written = Serdes::Serialize(message, payload_span);
 
-    // 2. Calculate and Append Checksum
+    // Calculate and Append Checksum
     if constexpr (ChecksumSize > 0) {
         // Calculate checksum over the header and payload (bytes_written
         // includes both).
@@ -231,26 +274,10 @@ template <typename Integrity, typename Serdes, typename Message>
         }
     }
 
-    // Validate Header
-    if (payload_span.size() <
-        StandardHeaderSize) {  // StandardHeaderSize is sizeof(version) +
-                               // sizeof(format)
-        return Error::deserialization("buffer too small for header");
-    }
-
-    // Validate Version
-    CrunchVersionId version;
-    std::memcpy(&version, payload_span.data(), sizeof(version));
-    if (version != CrunchVersion) {
-        return Error::deserialization("unsupported crunch version");
-    }
-
-    // Validate Serialization Format against buffer configuration
-    Crunch::Format format;
-    std::memcpy(&format, payload_span.data() + sizeof(version),
-                sizeof(Crunch::Format));
-    if (format != Serdes::GetFormat()) {
-        return Error::invalid_format();
+    // Validate Header (Version, Format, MessageId)
+    auto header_result = ValidateHeader<Message, Serdes>(payload_span);
+    if (!header_result) {
+        return header_result.error();
     }
 
     // Deserialize (Serdes policy executes its logic on the full span)
@@ -266,5 +293,77 @@ template <typename Integrity, typename Serdes, typename Message>
 
     return std::nullopt;
 }
+
+/**
+ * @brief Counts how many messages have the given message ID.
+ */
+template <MessageId Id, typename... Messages>
+consteval std::size_t CountMessageId() {
+    return ((Messages::message_id == Id ? 1 : 0) + ...);
+}
+
+/**
+ * @brief Returns true if any message ID appears more than once.
+ */
+template <typename... Messages>
+consteval bool HasDuplicateMessageIds() {
+    return ((CountMessageId<Messages::message_id, Messages...>() > 1) || ...);
+}
+
+template <typename... Messages>
+concept UniqueMessageIds = !HasDuplicateMessageIds<Messages...>();
+
+/**
+ * @brief Decoder class for deserializing one of N possible message types from a
+ * buffer.
+ *
+ * @tparam Serdes The serdes policy to use.
+ * @tparam Integrity The integrity policy to use.
+ * @tparam Messages The message types which may be deserialized (must have
+ * unique message IDs).
+ */
+template <typename Serdes, typename Integrity,
+          messages::CrunchMessage... Messages>
+    requires UniqueMessageIds<Messages...>
+class Decoder {
+   public:
+    using VariantType = std::variant<Messages...>;
+
+    [[nodiscard]] constexpr std::optional<Error> Decode(
+        std::span<const std::byte> buffer, VariantType& out_message) {
+        // Validate Header
+        const auto header = GetHeader(buffer);
+        if (!header) {
+            return header.error();
+        }
+
+        // Find message which matches header's message_id and deserialize
+        std::optional<Error> result = Error::invalid_message_id();
+        ([&]() -> bool {
+            if (Messages::message_id == header->message_id) {
+                Messages msg{};
+                auto err = Deserialize<Integrity, Serdes>(buffer, msg);
+                if (err) {
+                    result = err;
+                } else {
+                    out_message = std::move(msg);
+                    result = std::nullopt;
+                }
+                return true;
+            }
+            return false;
+        }() || ...);
+
+        return result;
+    }
+
+   private:
+    std::variant<
+        // Variant holding all possible buffer configurations for the given
+        // message types, integrity, and serdes
+        Buffer<Messages, Integrity, Serdes,
+               GetBufferSize<Messages, Integrity, Serdes>()>...>
+        buffer;
+};
 
 }  // namespace Crunch::detail

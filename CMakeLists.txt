@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 project(Crunch
-    VERSION 2.0.0
+    VERSION 3.0.0
     DESCRIPTION "A Message Definition Language for Getting Things Right"
     LANGUAGES CXX
 )

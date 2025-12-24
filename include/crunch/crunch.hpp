@@ -34,52 +34,10 @@
 
 namespace Crunch {
 
-/**
- * @brief A lightweight wrapper around a std::array for
- * serializing/deserializing messages.
- *
- * Encodes the Message, Integrity, and Serdes types, and provides a span
- * interface to the underlying data.
- *
- * @tparam Message The CrunchMessage type this buffer is for.
- * @tparam Integrity The IntegrityPolicy used.
- * @tparam Serdes The SerdesPolicy used.
- * @tparam N The size of the buffer in bytes.
- */
-template <typename Message, typename Integrity, typename Serdes, std::size_t N>
-struct Buffer {
-    using MessageType = Message;
-    using IntegrityType = Integrity;
-    using SerdesType = Serdes;
-
-    // cppcheck-suppress unusedStructMember
-    static constexpr std::size_t Size = N;
-
-    std::array<std::byte, N> data;
-    std::size_t used_bytes{0};
-
-    [[nodiscard]] constexpr auto span() noexcept {
-        return std::span<std::byte, N>{data};
-    }
-    [[nodiscard]] constexpr auto span() const noexcept {
-        return std::span<const std::byte, N>{data};
-    }
-
-    [[nodiscard]] constexpr auto serialized_message_span() const noexcept {
-        return std::span<const std::byte>{data.data(), used_bytes};
-    }
-};
-
-namespace detail {
-template <typename T>
-struct is_buffer : std::false_type {};
-
-template <typename Message, typename Integrity, typename Serdes, std::size_t N>
-struct is_buffer<Buffer<Message, Integrity, Serdes, N>> : std::true_type {};
-}  // namespace detail
-
-template <typename T>
-concept IsBuffer = detail::is_buffer<T>::value;
+// Expose Buffer, IsBuffer, and Decoder from detail namespace
+using detail::Buffer;
+using detail::Decoder;
+using detail::IsBuffer;
 
 /**
  * @brief Creates a correctly sized Buffer for the given configuration.

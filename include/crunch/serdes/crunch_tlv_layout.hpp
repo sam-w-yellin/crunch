@@ -12,6 +12,7 @@
 #include <cstdint>
 #include <cstring>
 #include <expected>
+#include <numeric>
 #include <optional>
 #include <span>
 #include <tuple>
@@ -93,6 +94,7 @@ struct TlvLayout {
     template <typename Message>
     [[nodiscard]] static constexpr std::size_t Serialize(
         const Message& msg, std::span<std::byte> output) noexcept {
+        // Header (including MessageId) is written by top-level serializer
         std::size_t offset = Crunch::StandardHeaderSize;
 
         const std::size_t length_field_offset = offset;
@@ -121,6 +123,7 @@ struct TlvLayout {
     [[nodiscard]] static constexpr auto Deserialize(
         std::span<const std::byte> input, Message& msg) noexcept
         -> std::optional<Error> {
+        // Header (including MessageId) validated by top-level deserializer
         std::size_t offset = Crunch::StandardHeaderSize;
 
         if (offset + sizeof(uint32_t) > input.size()) {

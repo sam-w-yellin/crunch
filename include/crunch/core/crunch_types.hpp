@@ -36,19 +36,17 @@ enum class Format : uint8_t {
 
 /**
  * @brief Version identifier for the Crunch library.
- *
- * @note The only valid value is 0x2.
  */
 using CrunchVersionId = uint8_t;
 
 /**
  * @brief Size of the standard message header in bytes.
- * Header: [Version (1B)] [Format (1B)]
+ * Header: [Version (1B)] [Format (1B)] [MessageId (4B)]
  */
 static constexpr std::size_t StandardHeaderSize =
-    sizeof(CrunchVersionId) + sizeof(Format);
+    sizeof(CrunchVersionId) + sizeof(Format) + sizeof(MessageId);
 
-static constexpr CrunchVersionId CrunchVersion = 0x02;
+static constexpr CrunchVersionId CrunchVersion = 0x03;
 
 /**
  * @brief Error codes representing various failure conditions in Crunch.

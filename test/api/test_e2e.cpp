@@ -71,17 +71,18 @@ TEST_CASE("Aligned Layout Check", "[e2e]") {
 
     auto buffer = GetBuffer<MyMessage, AlignedIntegrity, AlignedSerdes>();
 
-    // Layout check:
-    // Header(5). Align4 -> Start at 8. Padding [5,6].
-    // MsgId(4) at 8 -> 12.
-    // f1: is_set at 12. Align4 for int32 value causes padding [13,14,15]. Value
-    // at 16. f2: is_set at 20. Align2 for int16 value causes padding [21].
-    // Value at 22.
+    // Layout check with 6-byte header:
+    // Header: [Version(1)][Format(1)][MessageId(4)] -> 6 bytes
+    // Align4 -> Payload starts at offset 8, padding at [6,7]
+    // f1: is_set at 8. Align4 for int32 value causes padding [9,10,11]. Value
+    // at 12.
+    // f2: is_set at 16. Align2 for int16 value causes padding [17]. Value at
+    // 18.
 
     static_cast<void>(Serialize(buffer, msg));
 
     REQUIRE(buffer.data.size() == 20);
-    REQUIRE(buffer.data[2] == std::byte{0});   // Header padding
+    REQUIRE(buffer.data[6] == std::byte{0});   // Header padding
     REQUIRE(buffer.data[9] == std::byte{0});   // f1 padding
     REQUIRE(buffer.data[17] == std::byte{0});  // f2 padding
 }

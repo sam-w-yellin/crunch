@@ -45,3 +45,12 @@ cc_test(
         "@catch2//:catch2_main",
     ],
 )
+
+cc_test(
+    name = "decoder_test",
+    srcs = ["test_decoder.cpp"],
+    deps = [
+        "//include:crunch",
+        "@catch2//:catch2_main",
+    ],
+)
