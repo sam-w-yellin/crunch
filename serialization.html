@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('serialization.html',''); initResizable
 <div class="textblock"><p><a class="anchor" id="md_docs_serialization"></a> <a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a> supports pluggable serialization layouts. This document provides comprehensive wire format specifications for each layout.</p>
 <p><b>All multi-byte values are serialized in Little Endian byte order.</b></p>
 <hr  />
-<h1><a class="anchor" id="autotoc_md9"></a>
+<h1><a class="anchor" id="autotoc_md12"></a>
 Common Header</h1>
 <p>Every message includes a 6-byte header before the payload:</p>
 <table class="markdownTable">
@@ -116,13 +116,13 @@ Common Header</h1>
 <li><code>0x04</code>: TLV</li>
 </ul>
 <hr  />
-<h1><a class="anchor" id="autotoc_md11"></a>
+<h1><a class="anchor" id="autotoc_md14"></a>
 Static Layout</h1>
 <p><code>serdes::StaticLayout&lt;Alignment&gt;</code> produces a deterministic, fixed-size binary format. Buffer size is calculated at compile time.</p>
 <blockquote class="doxtable">
 <p>&zwj;<b>Zero-Fill Guarantee:</b> All padding bytes and unset field regions are explicitly zeroed during serialization. This ensures consistent CRC/checksum values regardless of uninitialized memory content. </p>
 </blockquote>
-<h2><a class="anchor" id="autotoc_md12"></a>
+<h2><a class="anchor" id="autotoc_md15"></a>
 Alignment Behavior</h2>
 <p>The alignment parameter controls padding insertion. For each value, padding is inserted to align the value to:</p>
 <div class="fragment"><div class="line">AlignTo = min(sizeof(ValueType), Alignment)</div>
@@ -143,7 +143,7 @@ Alignment Behavior</h2>
 </ul>
 </li>
 </ul>
-<h2><a class="anchor" id="autotoc_md13"></a>
+<h2><a class="anchor" id="autotoc_md16"></a>
 Payload Start</h2>
 <p>After the 6-byte header, the payload is aligned to <code>Alignment</code>:</p>
 <table class="markdownTable">
@@ -157,7 +157,7 @@ Payload Start</h2>
 <td class="markdownTableBodyNone">8   </td><td class="markdownTableBodyNone">6   </td><td class="markdownTableBodyNone">2   </td><td class="markdownTableBodyNone">8   </td></tr>
 </table>
 <p>The fields begin immediately at the payload start offset.</p>
-<h2><a class="anchor" id="autotoc_md14"></a>
+<h2><a class="anchor" id="autotoc_md17"></a>
 Scalar Serialization</h2>
 <p>For each scalar field:</p>
 <ol type="1">
@@ -166,7 +166,7 @@ Scalar Serialization</h2>
 <li><b>Value</b>: <code>sizeof(T)</code> bytes, little-endian</li>
 </ol>
 <div class="fragment"><div class="line">[is_set:1][padding:0-7][value:1-8]</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md15"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md18"></a>
 Type Sizes</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -186,7 +186,7 @@ Type Sizes</h3>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Float64   </td><td class="markdownTableBodyNone">8   </td><td class="markdownTableBodyNone">4   </td><td class="markdownTableBodyNone">8   </td></tr>
 </table>
-<h3><a class="anchor" id="autotoc_md16"></a>
+<h3><a class="anchor" id="autotoc_md19"></a>
 Example: Bool + Int64 with Alignment=8</h3>
 <p>Offset 0 is start of payload (at offset 8 after header).</p>
 <table class="markdownTable">
@@ -205,7 +205,7 @@ Example: Bool + Int64 with Alignment=8</h3>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">16-23   </td><td class="markdownTableBodyNone"><code>f2</code> Int64 value   </td><td class="markdownTableBodyNone">8 bytes   </td></tr>
 </table>
-<h2><a class="anchor" id="autotoc_md17"></a>
+<h2><a class="anchor" id="autotoc_md20"></a>
 String Serialization</h2>
 <div class="fragment"><div class="line">[is_set:1][padding][length:4][data:MaxSize]</div>
 </div><!-- fragment --><ol type="1">
@@ -217,7 +217,7 @@ String Serialization</h2>
 <blockquote class="doxtable">
 <p>&zwj;<b>Note:</b> The full <code>MaxSize</code> is always written, regardless of current length. This ensures fixed buffer sizes. </p>
 </blockquote>
-<h2><a class="anchor" id="autotoc_md18"></a>
+<h2><a class="anchor" id="autotoc_md21"></a>
 Submessage Serialization</h2>
 <div class="fragment"><div class="line">[is_set:1][padding][MessageId:4][fields...]</div>
 </div><!-- fragment --><ol type="1">
@@ -227,7 +227,7 @@ Submessage Serialization</h2>
 <li><b>Fields</b> recursively serialized</li>
 </ol>
 <p>If <code>is_set = 0</code>, the submessage region is zero-filled.</p>
-<h2><a class="anchor" id="autotoc_md19"></a>
+<h2><a class="anchor" id="autotoc_md22"></a>
 Array Serialization</h2>
 <p>Arrays do <b>not</b> have an <code>is_set</code> byte.</p>
 <div class="fragment"><div class="line">[padding][length:4][element_0][element_1]...[element_MaxSize-1]</div>
@@ -236,14 +236,14 @@ Array Serialization</h2>
 <li><b>Length</b> (4 bytes): Number of active elements</li>
 <li><b>Elements</b>: All <code>MaxSize</code> slots serialized (active elements have values, inactive are zero-filled)</li>
 </ol>
-<h3><a class="anchor" id="autotoc_md20"></a>
+<h3><a class="anchor" id="autotoc_md23"></a>
 Element Serialization</h3>
 <p>Elements are serialized based on their type:</p><ul>
 <li><b>Scalars</b>: <code>[padding][value]</code> (no is_set byte)</li>
 <li><b>Strings</b>: <code>[padding][length:4][data:MaxSize]</code></li>
 <li><b>Submessages</b>: <code>[padding][MessageId:4][fields...]</code></li>
 </ul>
-<h2><a class="anchor" id="autotoc_md21"></a>
+<h2><a class="anchor" id="autotoc_md24"></a>
 Map Serialization</h2>
 <p>Maps do <b>not</b> have an <code>is_set</code> byte.</p>
 <div class="fragment"><div class="line">[padding][length:4][pair_0][pair_1]...[pair_MaxSize-1]</div>
@@ -255,17 +255,17 @@ Map Serialization</h2>
 <p>Each pair is: </p><div class="fragment"><div class="line">[key][value]</div>
 </div><!-- fragment --><p>Where <code>key</code> and <code>value</code> are serialized according to their type (scalar, string, submessage, array, or nested map).</p>
 <hr  />
-<h1><a class="anchor" id="autotoc_md23"></a>
+<h1><a class="anchor" id="autotoc_md26"></a>
 TLV Layout</h1>
 <p><code>serdes::TlvLayout</code> uses Tag-Length-Value encoding for compact, forward-compatible serialization.</p>
-<h2><a class="anchor" id="autotoc_md24"></a>
+<h2><a class="anchor" id="autotoc_md27"></a>
 Overall Structure</h2>
 <div class="fragment"><div class="line">[Header:6][PayloadLength:4][Fields...]</div>
 </div><!-- fragment --><p>After the 6-byte header:</p><ol type="1">
 <li><b>Payload Length</b> (4 bytes, little-endian): Total size of all TLV-encoded fields</li>
 <li><b>Fields</b>: Variable-size field encodings</li>
 </ol>
-<h2><a class="anchor" id="autotoc_md25"></a>
+<h2><a class="anchor" id="autotoc_md28"></a>
 Wire Types</h2>
 <p>Each field is prefixed with a <b>tag</b> that encodes both the field ID and wire type:</p>
 <div class="fragment"><div class="line">Tag = (FieldId &lt;&lt; 3) | WireType</div>
@@ -277,7 +277,7 @@ Wire Types</h2>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">LengthDelimited   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">String, Submessage, Packed Array, Map Entry   </td></tr>
 </table>
-<h2><a class="anchor" id="autotoc_md26"></a>
+<h2><a class="anchor" id="autotoc_md29"></a>
 Varint Encoding</h2>
 <p>All integers, bools, and floats are encoded as varints:</p>
 <ul>
@@ -287,15 +287,15 @@ Varint Encoding</h2>
 <li><b>Bools</b>: <code>1</code> for true, <code>0</code> for false</li>
 </ul>
 <p>Varint format: 7 bits per byte, MSB indicates continuation.</p>
-<h3><a class="anchor" id="autotoc_md27"></a>
+<h3><a class="anchor" id="autotoc_md30"></a>
 Maximum Varint Size</h3>
 <p>A 64-bit value requires up to <b>10 bytes</b> as a varint. <a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a> does not support a size that enforces fixed types.</p>
 <p>If required, a new serialization policy that enforces fixed-sized encoding can be written if.</p>
-<h2><a class="anchor" id="autotoc_md28"></a>
+<h2><a class="anchor" id="autotoc_md31"></a>
 Scalar Serialization (TLV)</h2>
 <div class="fragment"><div class="line">[Tag:1-5][Value:1-10]</div>
 </div><!-- fragment --><p>Only set fields are serialized. Unset fields are omitted entirely.</p>
-<h2><a class="anchor" id="autotoc_md29"></a>
+<h2><a class="anchor" id="autotoc_md32"></a>
 String Serialization (TLV)</h2>
 <div class="fragment"><div class="line">[Tag][Length:1-10][Data:N]</div>
 </div><!-- fragment --><ol type="1">
@@ -303,7 +303,7 @@ String Serialization (TLV)</h2>
 <li><b>Length</b> as varint</li>
 <li><b>Data</b>: Actual string bytes (only current length, not max capacity)</li>
 </ol>
-<h2><a class="anchor" id="autotoc_md30"></a>
+<h2><a class="anchor" id="autotoc_md33"></a>
 Submessage Serialization (TLV)</h2>
 <div class="fragment"><div class="line">[Tag][Length:1-10][NestedFields...]</div>
 </div><!-- fragment --><ol type="1">
@@ -311,7 +311,7 @@ Submessage Serialization (TLV)</h2>
 <li><b>Length</b> as varint (size of nested content)</li>
 <li><b>Nested Fields</b>: Recursively TLV-encoded</li>
 </ol>
-<h3><a class="anchor" id="autotoc_md31"></a>
+<h3><a class="anchor" id="autotoc_md34"></a>
 The "Shifting" Optimization</h3>
 <p>When serializing a submessage (or any length-delimited content), we don't know the final length until all content is written. <a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a> handles this by:</p>
 <ol type="1">
@@ -326,7 +326,7 @@ The "Shifting" Optimization</h3>
 <li>We shift the 50 bytes backwards by 9 positions</li>
 </ul>
 <p>This avoids needing to calculate sizes in a separate pass.</p>
-<h2><a class="anchor" id="autotoc_md32"></a>
+<h2><a class="anchor" id="autotoc_md35"></a>
 Array Serialization (TLV)</h2>
 <p>All arrays use a unified packed encoding with element count:</p>
 <div class="fragment"><div class="line">[Tag][TotalLength][Count][Elem1][Elem2]...</div>
@@ -340,7 +340,7 @@ Array Serialization (TLV)</h2>
 <div class="fragment"><div class="line">[Tag][TotalLength][Count][Len1][String1][Len2][String2]...</div>
 </div><!-- fragment --><p>Example: <code>ArrayField&lt;1, Int32&lt;None&gt;, 5&gt;</code> with values <code>[1, 2, 3]</code>: </p><div class="fragment"><div class="line">[Tag:0x09][Len:4][Count:3][01][02][03]</div>
 </div><!-- fragment --><p>Example: <code>ArrayField&lt;1, String&lt;32&gt;, 5&gt;</code> with values <code>["hi", "bye"]</code>: </p><div class="fragment"><div class="line">[Tag:0x09][Len:10][Count:2][02]&quot;hi&quot;[03]&quot;bye&quot;</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md33"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md36"></a>
 Map Serialization (TLV)</h2>
 <p>Maps use packed encoding with entry count:</p>
 <div class="fragment"><div class="line">[Tag][TotalLength][Count][Key1][Value1][Key2][Value2]...</div>
@@ -352,7 +352,7 @@ Map Serialization (TLV)</h2>
 </ul>
 <p>For length-delimited keys/values, each includes its length prefix.</p>
 <p>Example: <code>MapField&lt;1, Int32&lt;None&gt;, String&lt;32&gt;, 10&gt;</code> with <code>{42: "foo"}</code>: </p><div class="fragment"><div class="line">[Tag:0x09][Len:6][Count:1][2A][03]&quot;foo&quot;</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md34"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md37"></a>
 Complex Keys and Values</h3>
 <p>Maps support any field type as keys or values:</p>
 <table class="markdownTable">
@@ -371,7 +371,7 @@ Complex Keys and Values</h3>
 </table>
 <p>Each nested container uses the same packed format.</p>
 <hr  />
-<h2><a class="anchor" id="autotoc_md36"></a>
+<h2><a class="anchor" id="autotoc_md39"></a>
 Size Comparison</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">

@@ -94,7 +94,7 @@ $(document).ready(function(){initNavTree('field_types.html',''); initResizable()
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_docs_field_types"></a> <a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a> supports a variety of field types for message definition. Each field type can have validators attached.</p>
-<h1><a class="anchor" id="autotoc_md0"></a>
+<h1><a class="anchor" id="autotoc_md3"></a>
 Scalars</h1>
 <p>Integer and floating-point types with optional validators.</p>
 <div class="fragment"><div class="line"><span class="keyword">struct </span>ScalarExample {</div>
@@ -121,7 +121,7 @@ Scalars</h1>
 <div class="line">msg.count.set(7);  <span class="comment">// OK: positive and odd</span></div>
 <div class="line">msg.value.set(3.1);  <span class="comment">// OK: within tolerance</span></div>
 <div class="line">msg.flag.set(<span class="keyword">true</span>);  <span class="comment">// OK</span></div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md1"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md4"></a>
 Enums</h1>
 <p>Custom enums with value constraints.</p>
 <div class="fragment"><div class="line"><span class="keyword">enum class</span> Status : int32_t { IDLE = 0, RUNNING = 1, ERROR = 2 };</div>
@@ -142,7 +142,7 @@ Enums</h1>
 <div class="line"><span class="keywordflow">if</span> (<span class="keyword">auto</span> err = msg.status.set(Status::ERROR); err) {</div>
 <div class="line">    <span class="comment">// Fails: ERROR not in allowed set</span></div>
 <div class="line">}</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md2"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md5"></a>
 Strings</h1>
 <p>Fixed-capacity strings with optional validators.</p>
 <div class="fragment"><div class="line"><span class="keyword">struct </span>StringExample {</div>
@@ -162,7 +162,7 @@ Strings</h1>
 <div class="line">StringExample msg;</div>
 <div class="line">msg.name.set(<span class="stringliteral">&quot;Alice&quot;</span>);</div>
 <div class="line">msg.code.set(<span class="stringliteral">&quot;ABC123&quot;</span>);</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md3"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md6"></a>
 Submessages</h1>
 <p>Nested message types.</p>
 <div class="fragment"><div class="line"><span class="keyword">struct </span>Inner {</div>
@@ -194,7 +194,7 @@ Submessages</h1>
 <div class="line">msg.point.set(inner);</div>
 <div class="ttc" id="anamespaceCrunch_html_a02c1d35d2f5759463f1af542b0b3d1cd"><div class="ttname"><a href="namespaceCrunch.html#a02c1d35d2f5759463f1af542b0b3d1cd">Crunch::Validate</a></div><div class="ttdeci">constexpr auto Validate(const Message &amp;message) noexcept -&gt; std::optional&lt; Error &gt;</div><div class="ttdoc">Validates a message (field presence + message-level validation).</div><div class="ttdef"><b>Definition:</b> crunch.hpp:81</div></div>
 <div class="ttc" id="anamespaceCrunch_html_a66629eb87acf6767408e23678c44a48f"><div class="ttname"><a href="namespaceCrunch.html#a66629eb87acf6767408e23678c44a48f">Crunch::MessageId</a></div><div class="ttdeci">int32_t MessageId</div><div class="ttdoc">Unique identifier for a message type.</div><div class="ttdef"><b>Definition:</b> crunch_types.hpp:25</div></div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md4"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md7"></a>
 Arrays</h1>
 <p>Fixed-capacity arrays with element and aggregate validators.</p>
 <div class="fragment"><div class="line"><span class="keyword">struct </span>ArrayExample {</div>
@@ -226,7 +226,7 @@ Arrays</h1>
 <div class="line"><span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; val : msg.values) {</div>
 <div class="line">    <span class="comment">// val.get() returns the value</span></div>
 <div class="line">}</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md5"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md8"></a>
 Maps</h1>
 <p>Fixed-capacity maps supporting any key/value types.</p>
 <blockquote class="doxtable">
@@ -264,7 +264,7 @@ Maps</h1>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Access with at() (returns optional)</span></div>
 <div class="line"><span class="keyword">auto</span> timeout = msg.config.at(<span class="stringliteral">&quot;timeout&quot;</span>);  <span class="comment">// optional&lt;int32_t&gt;</span></div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md6"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md9"></a>
 Complex Key Types</h2>
 <p>Unlike most serialization formats, <a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a> supports submessages, arrays, and even nested maps as map keys.</p>
 <blockquote class="doxtable">
@@ -304,7 +304,7 @@ Complex Key Types</h2>
 <div class="line">target.x.set(10);</div>
 <div class="line">target.y.set(5);</div>
 <div class="line">grid.cells.insert(target, <span class="stringliteral">&quot;goal&quot;</span>);</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md7"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md10"></a>
 Cross-Field Validation</h1>
 <p>The <code>Validate()</code> method enables custom logic across fields.</p>
 <div class="fragment"><div class="line"><span class="keyword">struct </span>OrderMessage {</div>
