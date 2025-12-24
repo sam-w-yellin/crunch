@@ -98,14 +98,16 @@ $(document).ready(function(){initNavTree('serialization.html',''); initResizable
 <hr  />
 <h1><a class="anchor" id="autotoc_md9"></a>
 Common Header</h1>
-<p>Every message includes a 2-byte header before the payload:</p>
+<p>Every message includes a 6-byte header before the payload:</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Offset   </th><th class="markdownTableHeadNone">Field   </th><th class="markdownTableHeadNone">Size   </th><th class="markdownTableHeadNone">Description    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">0   </td><td class="markdownTableBodyNone">Version   </td><td class="markdownTableBodyNone">1 byte   </td><td class="markdownTableBodyNone">Protocol version (<code>0x00</code>)    </td></tr>
+<td class="markdownTableBodyNone">0   </td><td class="markdownTableBodyNone">Version   </td><td class="markdownTableBodyNone">1 byte   </td><td class="markdownTableBodyNone">Protocol version (<code>0x02</code>)    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">Format   </td><td class="markdownTableBodyNone">1 byte   </td><td class="markdownTableBodyNone">Serialization format identifier   </td></tr>
+<td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">Format   </td><td class="markdownTableBodyNone">1 byte   </td><td class="markdownTableBodyNone">Serialization format identifier    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">2   </td><td class="markdownTableBodyNone">MessageId   </td><td class="markdownTableBodyNone">4 bytes   </td><td class="markdownTableBodyNone">Message type identifier (little-endian)   </td></tr>
 </table>
 <p><b>Format Values:</b></p><ul>
 <li><code>0x01</code>: Packed (Alignment = 1)</li>
@@ -143,18 +145,18 @@ Alignment Behavior</h2>
 </ul>
 <h2><a class="anchor" id="autotoc_md13"></a>
 Payload Start</h2>
-<p>After the 2-byte header, the payload is aligned to <code>Alignment</code>:</p>
+<p>After the 6-byte header, the payload is aligned to <code>Alignment</code>:</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Alignment   </th><th class="markdownTableHeadNone">Header End   </th><th class="markdownTableHeadNone">Padding   </th><th class="markdownTableHeadNone">Payload Start    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">2   </td><td class="markdownTableBodyNone">0   </td><td class="markdownTableBodyNone">2    </td></tr>
+<td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">6   </td><td class="markdownTableBodyNone">0   </td><td class="markdownTableBodyNone">6    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">4   </td><td class="markdownTableBodyNone">2   </td><td class="markdownTableBodyNone">2   </td><td class="markdownTableBodyNone">4    </td></tr>
+<td class="markdownTableBodyNone">4   </td><td class="markdownTableBodyNone">6   </td><td class="markdownTableBodyNone">2   </td><td class="markdownTableBodyNone">8    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">8   </td><td class="markdownTableBodyNone">2   </td><td class="markdownTableBodyNone">6   </td><td class="markdownTableBodyNone">8   </td></tr>
+<td class="markdownTableBodyNone">8   </td><td class="markdownTableBodyNone">6   </td><td class="markdownTableBodyNone">2   </td><td class="markdownTableBodyNone">8   </td></tr>
 </table>
-<p>The payload begins with a 4-byte <b>Message ID</b> (little-endian).</p>
+<p>The fields begin immediately at the payload start offset.</p>
 <h2><a class="anchor" id="autotoc_md14"></a>
 Scalar Serialization</h2>
 <p>For each scalar field:</p>
@@ -186,20 +188,20 @@ Type Sizes</h3>
 </table>
 <h3><a class="anchor" id="autotoc_md16"></a>
 Example: Bool + Int64 with Alignment=8</h3>
-<p>Offset 0 is start of payload (after message ID at offset 8).</p>
+<p>Offset 0 is start of payload (at offset 8 after header).</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Offset   </th><th class="markdownTableHeadNone">Content   </th><th class="markdownTableHeadNone">Description    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">12   </td><td class="markdownTableBodyNone"><code>f1</code> is_set   </td><td class="markdownTableBodyNone">1 byte    </td></tr>
+<td class="markdownTableBodyNone">8   </td><td class="markdownTableBodyNone"><code>f1</code> is_set   </td><td class="markdownTableBodyNone">1 byte    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">13   </td><td class="markdownTableBodyNone"><b>No padding</b>   </td><td class="markdownTableBodyNone">Bool aligns to 1    </td></tr>
+<td class="markdownTableBodyNone">9   </td><td class="markdownTableBodyNone"><b>No padding</b>   </td><td class="markdownTableBodyNone">Bool aligns to 1    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">13   </td><td class="markdownTableBodyNone"><code>f1</code> Bool value   </td><td class="markdownTableBodyNone">1 byte    </td></tr>
+<td class="markdownTableBodyNone">9   </td><td class="markdownTableBodyNone"><code>f1</code> Bool value   </td><td class="markdownTableBodyNone">1 byte    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">14   </td><td class="markdownTableBodyNone"><code>f2</code> is_set   </td><td class="markdownTableBodyNone">1 byte    </td></tr>
+<td class="markdownTableBodyNone">10   </td><td class="markdownTableBodyNone"><code>f2</code> is_set   </td><td class="markdownTableBodyNone">1 byte    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">15-15   </td><td class="markdownTableBodyNone"><b>Padding</b>   </td><td class="markdownTableBodyNone">1 byte to align Int64 to offset 16 (8-byte boundary)    </td></tr>
+<td class="markdownTableBodyNone">11-15   </td><td class="markdownTableBodyNone"><b>Padding</b>   </td><td class="markdownTableBodyNone">5 bytes to align Int64 to offset 16 (8-byte boundary)    </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">16-23   </td><td class="markdownTableBodyNone"><code>f2</code> Int64 value   </td><td class="markdownTableBodyNone">8 bytes   </td></tr>
 </table>
@@ -258,9 +260,9 @@ TLV Layout</h1>
 <p><code>serdes::TlvLayout</code> uses Tag-Length-Value encoding for compact, forward-compatible serialization.</p>
 <h2><a class="anchor" id="autotoc_md24"></a>
 Overall Structure</h2>
-<div class="fragment"><div class="line">[Header:2][PayloadLength:4][Fields...]</div>
-</div><!-- fragment --><p>After the 2-byte header:</p><ol type="1">
-<li><b>Payload Length</b> (4 bytes, little-endian): Total size of all fields</li>
+<div class="fragment"><div class="line">[Header:6][PayloadLength:4][Fields...]</div>
+</div><!-- fragment --><p>After the 6-byte header:</p><ol type="1">
+<li><b>Payload Length</b> (4 bytes, little-endian): Total size of all TLV-encoded fields</li>
 <li><b>Fields</b>: Variable-size field encodings</li>
 </ol>
 <h2><a class="anchor" id="autotoc_md25"></a>

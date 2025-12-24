@@ -4,6 +4,7 @@ var hierarchy =
     [ "Crunch::messages::ArrayField< Id, ElementType, MaxSize, Validators >", "classCrunch_1_1messages_1_1ArrayField.html", null ],
     [ "Crunch::Buffer< Message, Integrity, Serdes, N >", "structCrunch_1_1Buffer.html", null ],
     [ "Crunch::integrity::CRC16", "structCrunch_1_1integrity_1_1CRC16.html", null ],
+    [ "Crunch::CrunchHeader", "structCrunch_1_1CrunchHeader.html", null ],
     [ "Crunch::EqualTo< Threshold >", "structCrunch_1_1EqualTo.html", null ],
     [ "Crunch::Error", "structCrunch_1_1Error.html", null ],
     [ "Crunch::Even", "structCrunch_1_1Even.html", null ],

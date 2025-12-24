@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Crunch: include/crunch/core Directory Reference</title>
+<title>Crunch: Crunch::CrunchHeader Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -64,7 +64,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('dir_0b0d9a7ba65d45fde16e2768824e9cea.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('structCrunch_1_1CrunchHeader.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -90,25 +90,46 @@ $(document).ready(function(){initNavTree('dir_0b0d9a7ba65d45fde16e2768824e9cea.h
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">core Directory Reference</div></div>
+  <div class="summary">
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="structCrunch_1_1CrunchHeader-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">Crunch::CrunchHeader Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Represents the standard <a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a> message header.  
+ <a href="structCrunch_1_1CrunchHeader.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="crunch__header_8hpp_source.html">crunch_header.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="files" name="files"></a>
-Files</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><b>crunch_endian.hpp</b> <a href="crunch__endian_8hpp_source.html">[code]</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><b>crunch_header.hpp</b> <a href="crunch__header_8hpp_source.html">[code]</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><b>crunch_types.hpp</b> <a href="crunch__types_8hpp_source.html">[code]</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:aa02d4a062fd0cd424371884ca0059094"><td class="memItemLeft" align="right" valign="top"><a id="aa02d4a062fd0cd424371884ca0059094" name="aa02d4a062fd0cd424371884ca0059094"></a>
+<a class="el" href="namespaceCrunch.html#a2c3230e10728f491efe4e268bf3a43da">CrunchVersionId</a>&#160;</td><td class="memItemRight" valign="bottom"><b>version</b></td></tr>
+<tr class="separator:aa02d4a062fd0cd424371884ca0059094"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5579e5cdce331254f534f028d9ef6329"><td class="memItemLeft" align="right" valign="top"><a id="a5579e5cdce331254f534f028d9ef6329" name="a5579e5cdce331254f534f028d9ef6329"></a>
+<a class="el" href="namespaceCrunch.html#ab4ab5148661234d560d2d67ca17888f0">Format</a>&#160;</td><td class="memItemRight" valign="bottom"><b>format</b></td></tr>
+<tr class="separator:a5579e5cdce331254f534f028d9ef6329"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a069b854a494def14a09278f3dc56055e"><td class="memItemLeft" align="right" valign="top"><a id="a069b854a494def14a09278f3dc56055e" name="a069b854a494def14a09278f3dc56055e"></a>
+<a class="el" href="namespaceCrunch.html#a66629eb87acf6767408e23678c44a48f">MessageId</a>&#160;</td><td class="memItemRight" valign="bottom"><b>message_id</b></td></tr>
+<tr class="separator:a069b854a494def14a09278f3dc56055e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Represents the standard <a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a> message header. </p>
+<p>All protocols share this common header format:</p><ul>
+<li>Version (1 byte): Protocol version</li>
+<li>Format (1 byte): Serialization format identifier</li>
+<li>MessageId (4 bytes): <a class="el" href="structCrunch_1_1Unique.html" title="Validates that a container has unique elements.">Unique</a> message type identifier </li>
+</ul>
+</div><hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/crunch/core/<a class="el" href="crunch__header_8hpp_source.html">crunch_header.hpp</a></li>
+</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_f36fd81b79416f62ddd00fa8a9cc4792.html">crunch</a></li><li class="navelem"><a class="el" href="dir_0b0d9a7ba65d45fde16e2768824e9cea.html">core</a></li>
+    <li class="navelem"><a class="el" href="namespaceCrunch.html">Crunch</a></li><li class="navelem"><a class="el" href="structCrunch_1_1CrunchHeader.html">CrunchHeader</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
   </ul>
 </div>

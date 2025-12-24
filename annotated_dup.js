@@ -42,6 +42,7 @@ var annotated_dup =
       ] ],
       [ "Around", "structCrunch_1_1Around.html", null ],
       [ "Buffer", "structCrunch_1_1Buffer.html", null ],
+      [ "CrunchHeader", "structCrunch_1_1CrunchHeader.html", null ],
       [ "EqualTo", "structCrunch_1_1EqualTo.html", null ],
       [ "Error", "structCrunch_1_1Error.html", "structCrunch_1_1Error" ],
       [ "Even", "structCrunch_1_1Even.html", null ],

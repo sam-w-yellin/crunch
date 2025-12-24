@@ -121,6 +121,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCrunch_1_1Buffer.html">Buffer</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A lightweight wrapper around a std::array for serializing/deserializing messages.  <a href="structCrunch_1_1Buffer.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCrunch_1_1CrunchHeader.html">CrunchHeader</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents the standard <a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a> message header.  <a href="structCrunch_1_1CrunchHeader.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCrunch_1_1EqualTo.html">EqualTo</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates that a value equals a compile-time threshold.  <a href="structCrunch_1_1EqualTo.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -263,6 +266,18 @@ requires std::integral&lt;T&gt; || std::is_enum_v&lt;T&gt; || std::floating_poin
 <tr class="memitem:a5702d25e1f5ddc3d5c5abc453b04ee89"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceCrunch.html#a5702d25e1f5ddc3d5c5abc453b04ee89">LittleEndian</a> (T value) noexcept</td></tr>
 <tr class="memdesc:a5702d25e1f5ddc3d5c5abc453b04ee89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a value to/from Little Endian byte order.  <br /></td></tr>
 <tr class="separator:a5702d25e1f5ddc3d5c5abc453b04ee89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e93d0a5387e22741f70026ae7ab5769"><td class="memTemplParams" colspan="2">template&lt;typename Serdes &gt; </td></tr>
+<tr class="memitem:a9e93d0a5387e22741f70026ae7ab5769"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::expected&lt; <a class="el" href="structCrunch_1_1CrunchHeader.html">CrunchHeader</a>, <a class="el" href="structCrunch_1_1Error.html">Error</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceCrunch.html#a9e93d0a5387e22741f70026ae7ab5769">GetHeader</a> (std::span&lt; const std::byte &gt; input) noexcept</td></tr>
+<tr class="memdesc:a9e93d0a5387e22741f70026ae7ab5769"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses and returns a copy of the header from the input buffer.  <br /></td></tr>
+<tr class="separator:a9e93d0a5387e22741f70026ae7ab5769"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33ff6728bbb0018307e5bb45c311373d"><td class="memTemplParams" colspan="2">template&lt;typename Message , typename Serdes &gt; </td></tr>
+<tr class="memitem:a33ff6728bbb0018307e5bb45c311373d"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceCrunch.html#a33ff6728bbb0018307e5bb45c311373d">WriteHeader</a> (std::span&lt; std::byte &gt; output) noexcept</td></tr>
+<tr class="memdesc:a33ff6728bbb0018307e5bb45c311373d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the standard header to the output buffer.  <br /></td></tr>
+<tr class="separator:a33ff6728bbb0018307e5bb45c311373d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd3bb630c0af8cab6f6aeec898b7ba0f"><td class="memTemplParams" colspan="2">template&lt;typename Message , typename Serdes &gt; </td></tr>
+<tr class="memitem:afd3bb630c0af8cab6f6aeec898b7ba0f"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::expected&lt; std::size_t, <a class="el" href="structCrunch_1_1Error.html">Error</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceCrunch.html#afd3bb630c0af8cab6f6aeec898b7ba0f">ValidateHeader</a> (std::span&lt; const std::byte &gt; input) noexcept</td></tr>
+<tr class="memdesc:afd3bb630c0af8cab6f6aeec898b7ba0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates the header and returns offset after header on success.  <br /></td></tr>
+<tr class="separator:afd3bb630c0af8cab6f6aeec898b7ba0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad7eb5206843b276a9adc32b4c19a2cf0"><td class="memTemplParams" colspan="2">template&lt;messages::CrunchMessage Message, typename Integrity , typename Serdes &gt; <br />
 requires IntegrityPolicy&lt;Integrity&gt; &amp;&amp; SerdesPolicy&lt;Serdes, Message&gt;</td></tr>
 <tr class="memitem:ad7eb5206843b276a9adc32b4c19a2cf0"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceCrunch.html#ad7eb5206843b276a9adc32b4c19a2cf0">GetBuffer</a> () noexcept</td></tr>
@@ -495,6 +510,49 @@ requires IntegrityPolicy&lt;Integrity&gt; &amp;&amp; SerdesPolicy&lt;Serdes, Mes
 
 </div>
 </div>
+<a id="a9e93d0a5387e22741f70026ae7ab5769" name="a9e93d0a5387e22741f70026ae7ab5769"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e93d0a5387e22741f70026ae7ab5769">&#9670;&#160;</a></span>GetHeader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Serdes &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::expected&lt; <a class="el" href="structCrunch_1_1CrunchHeader.html">CrunchHeader</a>, <a class="el" href="structCrunch_1_1Error.html">Error</a> &gt; Crunch::GetHeader </td>
+          <td>(</td>
+          <td class="paramtype">std::span&lt; const std::byte &gt;&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Parses and returns a copy of the header from the input buffer. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Serdes</td><td>The serialization policy (used to determine expected format). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td>The input buffer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The parsed header on success, or an <a class="el" href="structCrunch_1_1Error.html" title="Represents an error occurred during Crunch operations.">Error</a> if the buffer is too small. </dd></dl>
+
+</div>
+</div>
 <a id="a5702d25e1f5ddc3d5c5abc453b04ee89" name="a5702d25e1f5ddc3d5c5abc453b04ee89"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5702d25e1f5ddc3d5c5abc453b04ee89">&#9670;&#160;</a></span>LittleEndian()</h2>
 
@@ -701,6 +759,100 @@ In the future, this will also validate submessages and run aggregate field valid
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>std::optional&lt;Error&gt; std::nullopt on success, or an <a class="el" href="structCrunch_1_1Error.html" title="Represents an error occurred during Crunch operations.">Error</a> if validation fails. </dd></dl>
+
+</div>
+</div>
+<a id="afd3bb630c0af8cab6f6aeec898b7ba0f" name="afd3bb630c0af8cab6f6aeec898b7ba0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd3bb630c0af8cab6f6aeec898b7ba0f">&#9670;&#160;</a></span>ValidateHeader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Message , typename Serdes &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::expected&lt; std::size_t, <a class="el" href="structCrunch_1_1Error.html">Error</a> &gt; Crunch::ValidateHeader </td>
+          <td>(</td>
+          <td class="paramtype">std::span&lt; const std::byte &gt;&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Validates the header and returns offset after header on success. </p>
+<p>Checks:</p><ul>
+<li><a class="el" href="structCrunch_1_1Buffer.html" title="A lightweight wrapper around a std::array for serializing/deserializing messages.">Buffer</a> is large enough</li>
+<li>Version matches CrunchVersion</li>
+<li>Format matches Serdes::GetFormat()</li>
+<li>MessageId matches Message::message_id</li>
+</ul>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Message</td><td>The expected message type. </td></tr>
+    <tr><td class="paramname">Serdes</td><td>The expected serialization policy. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td>The input buffer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Offset after header on success, or an <a class="el" href="structCrunch_1_1Error.html" title="Represents an error occurred during Crunch operations.">Error</a>. </dd></dl>
+
+</div>
+</div>
+<a id="a33ff6728bbb0018307e5bb45c311373d" name="a33ff6728bbb0018307e5bb45c311373d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33ff6728bbb0018307e5bb45c311373d">&#9670;&#160;</a></span>WriteHeader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Message , typename Serdes &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::size_t Crunch::WriteHeader </td>
+          <td>(</td>
+          <td class="paramtype">std::span&lt; std::byte &gt;&#160;</td>
+          <td class="paramname"><em>output</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Writes the standard header to the output buffer. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Message</td><td>The message type (provides message_id). </td></tr>
+    <tr><td class="paramname">Serdes</td><td>The serialization policy (provides format). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">output</td><td>The output buffer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The number of bytes written (always StandardHeaderSize). </dd></dl>
 
 </div>
 </div>

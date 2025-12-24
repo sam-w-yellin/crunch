@@ -4,6 +4,7 @@ var namespaceCrunch =
     [ "integrity", "namespaceCrunch_1_1integrity.html", "namespaceCrunch_1_1integrity" ],
     [ "Around", "structCrunch_1_1Around.html", null ],
     [ "Buffer", "structCrunch_1_1Buffer.html", null ],
+    [ "CrunchHeader", "structCrunch_1_1CrunchHeader.html", null ],
     [ "EqualTo", "structCrunch_1_1EqualTo.html", null ],
     [ "Error", "structCrunch_1_1Error.html", "structCrunch_1_1Error" ],
     [ "Even", "structCrunch_1_1Even.html", null ],
@@ -56,8 +57,11 @@ var namespaceCrunch =
     ] ],
     [ "Deserialize", "namespaceCrunch.html#a5f01fac1ba3e33993b3442bde933211c", null ],
     [ "GetBuffer", "namespaceCrunch.html#ad7eb5206843b276a9adc32b4c19a2cf0", null ],
+    [ "GetHeader", "namespaceCrunch.html#a9e93d0a5387e22741f70026ae7ab5769", null ],
     [ "LittleEndian", "namespaceCrunch.html#a5702d25e1f5ddc3d5c5abc453b04ee89", null ],
     [ "Serialize", "namespaceCrunch.html#a8fceaeae24c854b2aee60248be1e3d7b", null ],
     [ "SerializeWithoutValidation", "namespaceCrunch.html#a8da2f969a79a9586832fd4307c7f3afd", null ],
-    [ "Validate", "namespaceCrunch.html#a02c1d35d2f5759463f1af542b0b3d1cd", null ]
+    [ "Validate", "namespaceCrunch.html#a02c1d35d2f5759463f1af542b0b3d1cd", null ],
+    [ "ValidateHeader", "namespaceCrunch.html#afd3bb630c0af8cab6f6aeec898b7ba0f", null ],
+    [ "WriteHeader", "namespaceCrunch.html#a33ff6728bbb0018307e5bb45c311373d", null ]
 ];
