@@ -118,9 +118,6 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCrunch_1_1Around.html">Around</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates that a floating-point value is within a tolerance of a target.  <a href="structCrunch_1_1Around.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCrunch_1_1Buffer.html">Buffer</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A lightweight wrapper around a std::array for serializing/deserializing messages.  <a href="structCrunch_1_1Buffer.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCrunch_1_1CrunchHeader.html">CrunchHeader</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents the standard <a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a> message header.  <a href="structCrunch_1_1CrunchHeader.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -207,8 +204,6 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="concepts" name="concepts"></a>
 Concepts</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="conceptCrunch_1_1IsBuffer.html">IsBuffer</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="conceptCrunch_1_1IntegrityPolicy.html">IntegrityPolicy</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concept defining the interface for message integrity policies. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -266,10 +261,9 @@ requires std::integral&lt;T&gt; || std::is_enum_v&lt;T&gt; || std::floating_poin
 <tr class="memitem:a5702d25e1f5ddc3d5c5abc453b04ee89"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceCrunch.html#a5702d25e1f5ddc3d5c5abc453b04ee89">LittleEndian</a> (T value) noexcept</td></tr>
 <tr class="memdesc:a5702d25e1f5ddc3d5c5abc453b04ee89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a value to/from Little Endian byte order.  <br /></td></tr>
 <tr class="separator:a5702d25e1f5ddc3d5c5abc453b04ee89"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e93d0a5387e22741f70026ae7ab5769"><td class="memTemplParams" colspan="2">template&lt;typename Serdes &gt; </td></tr>
-<tr class="memitem:a9e93d0a5387e22741f70026ae7ab5769"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::expected&lt; <a class="el" href="structCrunch_1_1CrunchHeader.html">CrunchHeader</a>, <a class="el" href="structCrunch_1_1Error.html">Error</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceCrunch.html#a9e93d0a5387e22741f70026ae7ab5769">GetHeader</a> (std::span&lt; const std::byte &gt; input) noexcept</td></tr>
-<tr class="memdesc:a9e93d0a5387e22741f70026ae7ab5769"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses and returns a copy of the header from the input buffer.  <br /></td></tr>
-<tr class="separator:a9e93d0a5387e22741f70026ae7ab5769"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad5137104ecd3681c8831356ee6cfeae"><td class="memItemLeft" align="right" valign="top">constexpr std::expected&lt; <a class="el" href="structCrunch_1_1CrunchHeader.html">CrunchHeader</a>, <a class="el" href="structCrunch_1_1Error.html">Error</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceCrunch.html#aad5137104ecd3681c8831356ee6cfeae">GetHeader</a> (std::span&lt; const std::byte &gt; input) noexcept</td></tr>
+<tr class="memdesc:aad5137104ecd3681c8831356ee6cfeae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses and returns a copy of the header from the input buffer.  <br /></td></tr>
+<tr class="separator:aad5137104ecd3681c8831356ee6cfeae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33ff6728bbb0018307e5bb45c311373d"><td class="memTemplParams" colspan="2">template&lt;typename Message , typename Serdes &gt; </td></tr>
 <tr class="memitem:a33ff6728bbb0018307e5bb45c311373d"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceCrunch.html#a33ff6728bbb0018307e5bb45c311373d">WriteHeader</a> (std::span&lt; std::byte &gt; output) noexcept</td></tr>
 <tr class="memdesc:a33ff6728bbb0018307e5bb45c311373d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the standard header to the output buffer.  <br /></td></tr>
@@ -281,7 +275,7 @@ requires std::integral&lt;T&gt; || std::is_enum_v&lt;T&gt; || std::floating_poin
 <tr class="memitem:ad7eb5206843b276a9adc32b4c19a2cf0"><td class="memTemplParams" colspan="2">template&lt;messages::CrunchMessage Message, typename Integrity , typename Serdes &gt; <br />
 requires IntegrityPolicy&lt;Integrity&gt; &amp;&amp; SerdesPolicy&lt;Serdes, Message&gt;</td></tr>
 <tr class="memitem:ad7eb5206843b276a9adc32b4c19a2cf0"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceCrunch.html#ad7eb5206843b276a9adc32b4c19a2cf0">GetBuffer</a> () noexcept</td></tr>
-<tr class="memdesc:ad7eb5206843b276a9adc32b4c19a2cf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a correctly sized <a class="el" href="structCrunch_1_1Buffer.html" title="A lightweight wrapper around a std::array for serializing/deserializing messages.">Buffer</a> for the given configuration.  <br /></td></tr>
+<tr class="memdesc:ad7eb5206843b276a9adc32b4c19a2cf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a correctly sized Buffer for the given configuration.  <br /></td></tr>
 <tr class="separator:ad7eb5206843b276a9adc32b4c19a2cf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02c1d35d2f5759463f1af542b0b3d1cd"><td class="memTemplParams" colspan="2">template&lt;messages::CrunchMessage Message&gt; </td></tr>
 <tr class="memitem:a02c1d35d2f5759463f1af542b0b3d1cd"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceCrunch.html#a02c1d35d2f5759463f1af542b0b3d1cd">Validate</a> (const Message &amp;message) noexcept -&gt; std::optional&lt; <a class="el" href="structCrunch_1_1Error.html">Error</a> &gt;</td></tr>
@@ -448,20 +442,20 @@ requires IsBuffer&lt;BufferType&gt; &amp;&amp; messages::CrunchMessage&lt;Messag
 <p>Deserializes a message from a buffer. </p>
 <p>Verifies the integrity of the buffer, then attempts to deserialize the content into a Message object.</p>
 <p>Constraints:</p><ul>
-<li>BufferType must be an instantiation of <a class="el" href="structCrunch_1_1Buffer.html" title="A lightweight wrapper around a std::array for serializing/deserializing messages.">Crunch::Buffer</a>.</li>
+<li>BufferType must be an instantiation of Crunch::Buffer.</li>
 <li>Message must satisfy the CrunchMessage concept.</li>
 <li>BufferType::MessageType must be the same as Message.</li>
 </ul>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">BufferType</td><td>The <a class="el" href="structCrunch_1_1Buffer.html" title="A lightweight wrapper around a std::array for serializing/deserializing messages.">Buffer</a> type </td></tr>
+    <tr><td class="paramname">BufferType</td><td>The Buffer type </td></tr>
     <tr><td class="paramname">Message</td><td>The CrunchMessage type to deserialize into. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">buffer</td><td>The source <a class="el" href="structCrunch_1_1Buffer.html" title="A lightweight wrapper around a std::array for serializing/deserializing messages.">Buffer</a> to read from. </td></tr>
+    <tr><td class="paramname">buffer</td><td>The source Buffer to read from. </td></tr>
     <tr><td class="paramname">out_message</td><td>Output parameter for the deserialized message. </td></tr>
   </table>
   </dd>
@@ -496,7 +490,7 @@ requires IntegrityPolicy&lt;Integrity&gt; &amp;&amp; SerdesPolicy&lt;Serdes, Mes
 </table>
 </div><div class="memdoc">
 
-<p>Creates a correctly sized <a class="el" href="structCrunch_1_1Buffer.html" title="A lightweight wrapper around a std::array for serializing/deserializing messages.">Buffer</a> for the given configuration. </p>
+<p>Creates a correctly sized Buffer for the given configuration. </p>
 <p>This function calculates the exact size required for the message serialization plus any integrity overhead at compile time.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
@@ -506,17 +500,15 @@ requires IntegrityPolicy&lt;Integrity&gt; &amp;&amp; SerdesPolicy&lt;Serdes, Mes
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="structCrunch_1_1Buffer.html" title="A lightweight wrapper around a std::array for serializing/deserializing messages.">Buffer</a> object ready for use with Serialize/Deserialize. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A Buffer object ready for use with Serialize/Deserialize. </dd></dl>
 
 </div>
 </div>
-<a id="a9e93d0a5387e22741f70026ae7ab5769" name="a9e93d0a5387e22741f70026ae7ab5769"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e93d0a5387e22741f70026ae7ab5769">&#9670;&#160;</a></span>GetHeader()</h2>
+<a id="aad5137104ecd3681c8831356ee6cfeae" name="aad5137104ecd3681c8831356ee6cfeae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad5137104ecd3681c8831356ee6cfeae">&#9670;&#160;</a></span>GetHeader()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename Serdes &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -537,12 +529,6 @@ template&lt;typename Serdes &gt; </div>
 </div><div class="memdoc">
 
 <p>Parses and returns a copy of the header from the input buffer. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">Serdes</td><td>The serialization policy (used to determine expected format). </td></tr>
-  </table>
-  </dd>
-</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">input</td><td>The input buffer. </td></tr>
@@ -637,20 +623,20 @@ requires IsBuffer&lt;BufferType&gt; &amp;&amp; messages::CrunchMessage&lt;Messag
 <p>Serializes a message into the provided buffer. </p>
 <p>Validates the message content, serializes it according to the Serdes policy, and applies the Integrity policy (e.g., checksum).</p>
 <p>Constraints:</p><ul>
-<li>BufferType must be an instantiation of <a class="el" href="structCrunch_1_1Buffer.html" title="A lightweight wrapper around a std::array for serializing/deserializing messages.">Crunch::Buffer</a>.</li>
+<li>BufferType must be an instantiation of Crunch::Buffer.</li>
 <li>Message must satisfy the CrunchMessage concept.</li>
 <li>BufferType::MessageType must be the same as Message.</li>
 </ul>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">BufferType</td><td>The <a class="el" href="structCrunch_1_1Buffer.html" title="A lightweight wrapper around a std::array for serializing/deserializing messages.">Buffer</a> type (deduced from buffer parameter). </td></tr>
+    <tr><td class="paramname">BufferType</td><td>The Buffer type (deduced from buffer parameter). </td></tr>
     <tr><td class="paramname">Message</td><td>The CrunchMessage type to serialize. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">buffer</td><td>The destination <a class="el" href="structCrunch_1_1Buffer.html" title="A lightweight wrapper around a std::array for serializing/deserializing messages.">Buffer</a> (must match Message type). </td></tr>
+    <tr><td class="paramname">buffer</td><td>The destination Buffer (must match Message type). </td></tr>
     <tr><td class="paramname">message</td><td>The message to serialize. </td></tr>
   </table>
   </dd>
@@ -700,14 +686,14 @@ requires IsBuffer&lt;BufferType&gt; &amp;&amp; messages::CrunchMessage&lt;Messag
 <p>Does strictly serialization logic (header, payload, checksum) without running any validation checks. Useful for forwarding invalid messages, testing, or performance-critical paths where validation is done elsewhere.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">BufferType</td><td>The <a class="el" href="structCrunch_1_1Buffer.html" title="A lightweight wrapper around a std::array for serializing/deserializing messages.">Buffer</a> type </td></tr>
+    <tr><td class="paramname">BufferType</td><td>The Buffer type </td></tr>
     <tr><td class="paramname">Message</td><td>The CrunchMessage type to serialize. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">buffer</td><td>The destination <a class="el" href="structCrunch_1_1Buffer.html" title="A lightweight wrapper around a std::array for serializing/deserializing messages.">Buffer</a> (must match Message type). </td></tr>
+    <tr><td class="paramname">buffer</td><td>The destination Buffer (must match Message type). </td></tr>
     <tr><td class="paramname">message</td><td>The message to serialize. </td></tr>
   </table>
   </dd>
@@ -790,7 +776,7 @@ template&lt;typename Message , typename Serdes &gt; </div>
 
 <p>Validates the header and returns offset after header on success. </p>
 <p>Checks:</p><ul>
-<li><a class="el" href="structCrunch_1_1Buffer.html" title="A lightweight wrapper around a std::array for serializing/deserializing messages.">Buffer</a> is large enough</li>
+<li>Buffer is large enough</li>
 <li>Version matches CrunchVersion</li>
 <li>Format matches Serdes::GetFormat()</li>
 <li>MessageId matches Message::message_id</li>

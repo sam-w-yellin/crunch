@@ -1,5 +1,9 @@
 var NAVTREEINDEX1 =
 {
+"structCrunch_1_1fields_1_1is__string.html":[11,0,0,1,2],
+"structCrunch_1_1fields_1_1is__string_3_01String_3_01MaxSize_00_01V_8_8_8_01_4_01_4.html":[11,0,0,1,3],
+"structCrunch_1_1integrity_1_1CRC16.html":[9,0,0,1,0],
+"structCrunch_1_1integrity_1_1CRC16.html":[11,0,0,2,0],
 "structCrunch_1_1integrity_1_1None.html":[11,0,0,2,1],
 "structCrunch_1_1integrity_1_1None.html":[9,0,0,1,1],
 "structCrunch_1_1integrity_1_1Parity.html":[11,0,0,2,2],

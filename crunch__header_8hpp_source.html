@@ -109,85 +109,84 @@ $(document).ready(function(){initNavTree('crunch__header_8hpp_source.html',''); 
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <a class="code hl_typedef" href="namespaceCrunch.html#a66629eb87acf6767408e23678c44a48f">MessageId</a> message_id;</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>};</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Serdes&gt;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="namespaceCrunch.html#a9e93d0a5387e22741f70026ae7ab5769">   33</a></span>[[nodiscard]] <span class="keyword">constexpr</span> std::expected&lt;CrunchHeader, Error&gt; <a class="code hl_function" href="namespaceCrunch.html#a9e93d0a5387e22741f70026ae7ab5769">GetHeader</a>(</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    std::span&lt;const std::byte&gt; input) <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordflow">if</span> (input.size() &lt; StandardHeaderSize) {</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordflow">return</span> std::unexpected(</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>            <a class="code hl_function" href="structCrunch_1_1Error.html#a3209de600e5dd1a0e7ce6efc2dcdc9df">Error::deserialization</a>(<span class="stringliteral">&quot;buffer too small for header&quot;</span>));</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    }</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="namespaceCrunch.html#aad5137104ecd3681c8831356ee6cfeae">   31</a></span>[[nodiscard]] <span class="keyword">constexpr</span> std::expected&lt;CrunchHeader, Error&gt; <a class="code hl_function" href="namespaceCrunch.html#aad5137104ecd3681c8831356ee6cfeae">GetHeader</a>(</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    std::span&lt;const std::byte&gt; input) <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordflow">if</span> (input.size() &lt; StandardHeaderSize) {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordflow">return</span> std::unexpected(</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            <a class="code hl_function" href="structCrunch_1_1Error.html#a3209de600e5dd1a0e7ce6efc2dcdc9df">Error::deserialization</a>(<span class="stringliteral">&quot;buffer too small for header&quot;</span>));</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    }</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_struct" href="structCrunch_1_1CrunchHeader.html">CrunchHeader</a> header{};</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <a class="code hl_struct" href="structCrunch_1_1CrunchHeader.html">CrunchHeader</a> header{};</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    std::memcpy(&amp;header.version, input.data(), <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="namespaceCrunch.html#a2c3230e10728f491efe4e268bf3a43da">CrunchVersionId</a>));</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    std::memcpy(&amp;header.format, input.data() + <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="namespaceCrunch.html#a2c3230e10728f491efe4e268bf3a43da">CrunchVersionId</a>),</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                <span class="keyword">sizeof</span>(<a class="code hl_enumeration" href="namespaceCrunch.html#ab4ab5148661234d560d2d67ca17888f0">Format</a>));</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <a class="code hl_typedef" href="namespaceCrunch.html#a66629eb87acf6767408e23678c44a48f">MessageId</a> msg_id;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    std::memcpy(&amp;msg_id,</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                input.data() + <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="namespaceCrunch.html#a2c3230e10728f491efe4e268bf3a43da">CrunchVersionId</a>) + <span class="keyword">sizeof</span>(<a class="code hl_enumeration" href="namespaceCrunch.html#ab4ab5148661234d560d2d67ca17888f0">Format</a>),</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="namespaceCrunch.html#a66629eb87acf6767408e23678c44a48f">MessageId</a>));</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    header.message_id = <a class="code hl_function" href="namespaceCrunch.html#a5702d25e1f5ddc3d5c5abc453b04ee89">LittleEndian</a>(msg_id);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">return</span> header;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Message, <span class="keyword">typename</span> Serdes&gt;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="namespaceCrunch.html#a33ff6728bbb0018307e5bb45c311373d">   64</a></span>[[nodiscard]] <span class="keyword">constexpr</span> std::size_t <a class="code hl_function" href="namespaceCrunch.html#a33ff6728bbb0018307e5bb45c311373d">WriteHeader</a>(</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    std::span&lt;std::byte&gt; output) <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    std::size_t offset = 0;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="namespaceCrunch.html#a2c3230e10728f491efe4e268bf3a43da">CrunchVersionId</a> version = CrunchVersion;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    std::memcpy(output.data() + offset, &amp;version, <span class="keyword">sizeof</span>(version));</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    offset += <span class="keyword">sizeof</span>(version);</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keyword">const</span> <a class="code hl_enumeration" href="namespaceCrunch.html#ab4ab5148661234d560d2d67ca17888f0">Format</a> format = Serdes::GetFormat();</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    std::memcpy(output.data() + offset, &amp;format, <span class="keyword">sizeof</span>(format));</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    offset += <span class="keyword">sizeof</span>(format);</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="namespaceCrunch.html#a66629eb87acf6767408e23678c44a48f">MessageId</a> msg_id = Message::message_id;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="namespaceCrunch.html#a66629eb87acf6767408e23678c44a48f">MessageId</a> le_msg_id = <a class="code hl_function" href="namespaceCrunch.html#a5702d25e1f5ddc3d5c5abc453b04ee89">LittleEndian</a>(msg_id);</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    std::memcpy(output.data() + offset, &amp;le_msg_id, <span class="keyword">sizeof</span>(le_msg_id));</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    offset += <span class="keyword">sizeof</span>(le_msg_id);</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordflow">return</span> offset;</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>}</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Message, <span class="keyword">typename</span> Serdes&gt;</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="namespaceCrunch.html#afd3bb630c0af8cab6f6aeec898b7ba0f">   99</a></span>[[nodiscard]] <span class="keyword">constexpr</span> std::expected&lt;std::size_t, Error&gt; <a class="code hl_function" href="namespaceCrunch.html#afd3bb630c0af8cab6f6aeec898b7ba0f">ValidateHeader</a>(</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    std::span&lt;const std::byte&gt; input) <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keyword">auto</span> header_result = GetHeader&lt;Serdes&gt;(input);</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keywordflow">if</span> (!header_result) {</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        <span class="keywordflow">return</span> std::unexpected(header_result.error());</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    }</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    std::memcpy(&amp;header.version, input.data(), <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="namespaceCrunch.html#a2c3230e10728f491efe4e268bf3a43da">CrunchVersionId</a>));</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    std::memcpy(&amp;header.format, input.data() + <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="namespaceCrunch.html#a2c3230e10728f491efe4e268bf3a43da">CrunchVersionId</a>),</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>                <span class="keyword">sizeof</span>(<a class="code hl_enumeration" href="namespaceCrunch.html#ab4ab5148661234d560d2d67ca17888f0">Format</a>));</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <a class="code hl_typedef" href="namespaceCrunch.html#a66629eb87acf6767408e23678c44a48f">MessageId</a> msg_id;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    std::memcpy(&amp;msg_id,</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                input.data() + <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="namespaceCrunch.html#a2c3230e10728f491efe4e268bf3a43da">CrunchVersionId</a>) + <span class="keyword">sizeof</span>(<a class="code hl_enumeration" href="namespaceCrunch.html#ab4ab5148661234d560d2d67ca17888f0">Format</a>),</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="namespaceCrunch.html#a66629eb87acf6767408e23678c44a48f">MessageId</a>));</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    header.message_id = <a class="code hl_function" href="namespaceCrunch.html#a5702d25e1f5ddc3d5c5abc453b04ee89">LittleEndian</a>(msg_id);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordflow">return</span> header;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>}</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Message, <span class="keyword">typename</span> Serdes&gt;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="namespaceCrunch.html#a33ff6728bbb0018307e5bb45c311373d">   62</a></span>[[nodiscard]] <span class="keyword">constexpr</span> std::size_t <a class="code hl_function" href="namespaceCrunch.html#a33ff6728bbb0018307e5bb45c311373d">WriteHeader</a>(</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    std::span&lt;std::byte&gt; output) <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    std::size_t offset = 0;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="namespaceCrunch.html#a2c3230e10728f491efe4e268bf3a43da">CrunchVersionId</a> version = CrunchVersion;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    std::memcpy(output.data() + offset, &amp;version, <span class="keyword">sizeof</span>(version));</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    offset += <span class="keyword">sizeof</span>(version);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keyword">const</span> <a class="code hl_enumeration" href="namespaceCrunch.html#ab4ab5148661234d560d2d67ca17888f0">Format</a> format = Serdes::GetFormat();</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    std::memcpy(output.data() + offset, &amp;format, <span class="keyword">sizeof</span>(format));</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    offset += <span class="keyword">sizeof</span>(format);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="namespaceCrunch.html#a66629eb87acf6767408e23678c44a48f">MessageId</a> msg_id = Message::message_id;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="namespaceCrunch.html#a66629eb87acf6767408e23678c44a48f">MessageId</a> le_msg_id = <a class="code hl_function" href="namespaceCrunch.html#a5702d25e1f5ddc3d5c5abc453b04ee89">LittleEndian</a>(msg_id);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    std::memcpy(output.data() + offset, &amp;le_msg_id, <span class="keyword">sizeof</span>(le_msg_id));</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    offset += <span class="keyword">sizeof</span>(le_msg_id);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keywordflow">return</span> offset;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>}</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Message, <span class="keyword">typename</span> Serdes&gt;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="namespaceCrunch.html#afd3bb630c0af8cab6f6aeec898b7ba0f">   97</a></span>[[nodiscard]] <span class="keyword">constexpr</span> std::expected&lt;std::size_t, Error&gt; <a class="code hl_function" href="namespaceCrunch.html#afd3bb630c0af8cab6f6aeec898b7ba0f">ValidateHeader</a>(</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    std::span&lt;const std::byte&gt; input) <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keyword">auto</span> header_result = <a class="code hl_function" href="namespaceCrunch.html#aad5137104ecd3681c8831356ee6cfeae">GetHeader</a>(input);</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keywordflow">if</span> (!header_result) {</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="keywordflow">return</span> std::unexpected(header_result.error());</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    }</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structCrunch_1_1CrunchHeader.html">CrunchHeader</a>&amp; header = *header_result;</div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structCrunch_1_1CrunchHeader.html">CrunchHeader</a>&amp; header = *header_result;</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="keywordflow">if</span> (header.version != CrunchVersion) {</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="keywordflow">return</span> std::unexpected(</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>            <a class="code hl_function" href="structCrunch_1_1Error.html#a3209de600e5dd1a0e7ce6efc2dcdc9df">Error::deserialization</a>(<span class="stringliteral">&quot;unsupported crunch version&quot;</span>));</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    }</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keywordflow">if</span> (header.format != Serdes::GetFormat()) {</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="keywordflow">return</span> std::unexpected(<a class="code hl_function" href="structCrunch_1_1Error.html#ac843fdafabf1f2e669454225da7b375d">Error::invalid_format</a>());</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    }</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="keywordflow">if</span> (header.message_id != Message::message_id) {</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="keywordflow">return</span> std::unexpected(<a class="code hl_function" href="structCrunch_1_1Error.html#aaefdb79db26d64cc66c3e58a7e4f2dd4">Error::invalid_message_id</a>());</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    }</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keywordflow">return</span> StandardHeaderSize;</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>}</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>}  <span class="comment">// namespace Crunch</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordflow">if</span> (header.version != CrunchVersion) {</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="keywordflow">return</span> std::unexpected(</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            <a class="code hl_function" href="structCrunch_1_1Error.html#a3209de600e5dd1a0e7ce6efc2dcdc9df">Error::deserialization</a>(<span class="stringliteral">&quot;unsupported crunch version&quot;</span>));</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    }</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keywordflow">if</span> (header.format != Serdes::GetFormat()) {</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="keywordflow">return</span> std::unexpected(<a class="code hl_function" href="structCrunch_1_1Error.html#ac843fdafabf1f2e669454225da7b375d">Error::invalid_format</a>());</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    }</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keywordflow">if</span> (header.message_id != Message::message_id) {</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="keywordflow">return</span> std::unexpected(<a class="code hl_function" href="structCrunch_1_1Error.html#aaefdb79db26d64cc66c3e58a7e4f2dd4">Error::invalid_message_id</a>());</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    }</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="keywordflow">return</span> StandardHeaderSize;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>}</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>}  <span class="comment">// namespace Crunch</span></div>
 <div class="ttc" id="anamespaceCrunch_html"><div class="ttname"><a href="namespaceCrunch.html">Crunch</a></div><div class="ttdoc">The public API for Crunch.</div><div class="ttdef"><b>Definition:</b> crunch_endian.hpp:10</div></div>
 <div class="ttc" id="anamespaceCrunch_html_a2c3230e10728f491efe4e268bf3a43da"><div class="ttname"><a href="namespaceCrunch.html#a2c3230e10728f491efe4e268bf3a43da">Crunch::CrunchVersionId</a></div><div class="ttdeci">uint8_t CrunchVersionId</div><div class="ttdoc">Version identifier for the Crunch library.</div><div class="ttdef"><b>Definition:</b> crunch_types.hpp:42</div></div>
-<div class="ttc" id="anamespaceCrunch_html_a33ff6728bbb0018307e5bb45c311373d"><div class="ttname"><a href="namespaceCrunch.html#a33ff6728bbb0018307e5bb45c311373d">Crunch::WriteHeader</a></div><div class="ttdeci">constexpr std::size_t WriteHeader(std::span&lt; std::byte &gt; output) noexcept</div><div class="ttdoc">Writes the standard header to the output buffer.</div><div class="ttdef"><b>Definition:</b> crunch_header.hpp:64</div></div>
+<div class="ttc" id="anamespaceCrunch_html_a33ff6728bbb0018307e5bb45c311373d"><div class="ttname"><a href="namespaceCrunch.html#a33ff6728bbb0018307e5bb45c311373d">Crunch::WriteHeader</a></div><div class="ttdeci">constexpr std::size_t WriteHeader(std::span&lt; std::byte &gt; output) noexcept</div><div class="ttdoc">Writes the standard header to the output buffer.</div><div class="ttdef"><b>Definition:</b> crunch_header.hpp:62</div></div>
 <div class="ttc" id="anamespaceCrunch_html_a5702d25e1f5ddc3d5c5abc453b04ee89"><div class="ttname"><a href="namespaceCrunch.html#a5702d25e1f5ddc3d5c5abc453b04ee89">Crunch::LittleEndian</a></div><div class="ttdeci">constexpr T LittleEndian(T value) noexcept</div><div class="ttdoc">Converts a value to/from Little Endian byte order.</div><div class="ttdef"><b>Definition:</b> crunch_endian.hpp:21</div></div>
 <div class="ttc" id="anamespaceCrunch_html_a66629eb87acf6767408e23678c44a48f"><div class="ttname"><a href="namespaceCrunch.html#a66629eb87acf6767408e23678c44a48f">Crunch::MessageId</a></div><div class="ttdeci">int32_t MessageId</div><div class="ttdoc">Unique identifier for a message type.</div><div class="ttdef"><b>Definition:</b> crunch_types.hpp:25</div></div>
-<div class="ttc" id="anamespaceCrunch_html_a9e93d0a5387e22741f70026ae7ab5769"><div class="ttname"><a href="namespaceCrunch.html#a9e93d0a5387e22741f70026ae7ab5769">Crunch::GetHeader</a></div><div class="ttdeci">constexpr std::expected&lt; CrunchHeader, Error &gt; GetHeader(std::span&lt; const std::byte &gt; input) noexcept</div><div class="ttdoc">Parses and returns a copy of the header from the input buffer.</div><div class="ttdef"><b>Definition:</b> crunch_header.hpp:33</div></div>
+<div class="ttc" id="anamespaceCrunch_html_aad5137104ecd3681c8831356ee6cfeae"><div class="ttname"><a href="namespaceCrunch.html#aad5137104ecd3681c8831356ee6cfeae">Crunch::GetHeader</a></div><div class="ttdeci">constexpr std::expected&lt; CrunchHeader, Error &gt; GetHeader(std::span&lt; const std::byte &gt; input) noexcept</div><div class="ttdoc">Parses and returns a copy of the header from the input buffer.</div><div class="ttdef"><b>Definition:</b> crunch_header.hpp:31</div></div>
 <div class="ttc" id="anamespaceCrunch_html_ab4ab5148661234d560d2d67ca17888f0"><div class="ttname"><a href="namespaceCrunch.html#ab4ab5148661234d560d2d67ca17888f0">Crunch::Format</a></div><div class="ttdeci">Format</div><div class="ttdoc">Serialization format identifier stored in the message header.</div><div class="ttdef"><b>Definition:</b> crunch_types.hpp:30</div></div>
-<div class="ttc" id="anamespaceCrunch_html_afd3bb630c0af8cab6f6aeec898b7ba0f"><div class="ttname"><a href="namespaceCrunch.html#afd3bb630c0af8cab6f6aeec898b7ba0f">Crunch::ValidateHeader</a></div><div class="ttdeci">constexpr std::expected&lt; std::size_t, Error &gt; ValidateHeader(std::span&lt; const std::byte &gt; input) noexcept</div><div class="ttdoc">Validates the header and returns offset after header on success.</div><div class="ttdef"><b>Definition:</b> crunch_header.hpp:99</div></div>
+<div class="ttc" id="anamespaceCrunch_html_afd3bb630c0af8cab6f6aeec898b7ba0f"><div class="ttname"><a href="namespaceCrunch.html#afd3bb630c0af8cab6f6aeec898b7ba0f">Crunch::ValidateHeader</a></div><div class="ttdeci">constexpr std::expected&lt; std::size_t, Error &gt; ValidateHeader(std::span&lt; const std::byte &gt; input) noexcept</div><div class="ttdoc">Validates the header and returns offset after header on success.</div><div class="ttdef"><b>Definition:</b> crunch_header.hpp:97</div></div>
 <div class="ttc" id="astructCrunch_1_1CrunchHeader_html"><div class="ttname"><a href="structCrunch_1_1CrunchHeader.html">Crunch::CrunchHeader</a></div><div class="ttdoc">Represents the standard Crunch message header.</div><div class="ttdef"><b>Definition:</b> crunch_header.hpp:19</div></div>
 <div class="ttc" id="astructCrunch_1_1Error_html_a3209de600e5dd1a0e7ce6efc2dcdc9df"><div class="ttname"><a href="structCrunch_1_1Error.html#a3209de600e5dd1a0e7ce6efc2dcdc9df">Crunch::Error::deserialization</a></div><div class="ttdeci">static constexpr Error deserialization(std::string_view msg=&quot;deserialization error&quot;) noexcept</div><div class="ttdoc">Creates an error representing a deserialization failure.</div><div class="ttdef"><b>Definition:</b> crunch_types.hpp:106</div></div>
 <div class="ttc" id="astructCrunch_1_1Error_html_aaefdb79db26d64cc66c3e58a7e4f2dd4"><div class="ttname"><a href="structCrunch_1_1Error.html#aaefdb79db26d64cc66c3e58a7e4f2dd4">Crunch::Error::invalid_message_id</a></div><div class="ttdeci">static constexpr Error invalid_message_id() noexcept</div><div class="ttdoc">Creates an error representing an invalid message ID.</div><div class="ttdef"><b>Definition:</b> crunch_types.hpp:114</div></div>

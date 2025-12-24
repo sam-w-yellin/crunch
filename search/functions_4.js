@@ -4,5 +4,5 @@ var searchData=
   ['getbuffer_1',['GetBuffer',['../namespaceCrunch.html#ad7eb5206843b276a9adc32b4c19a2cf0',1,'Crunch']]],
   ['getbuffersize_2',['GetBufferSize',['../namespaceCrunch_1_1detail.html#ac0cabb1201d956cdcda881bcb58a7f2b',1,'Crunch::detail']]],
   ['getformat_3',['GetFormat',['../structCrunch_1_1serdes_1_1StaticLayout.html#a6a54a484124cb2ce53a3cbf1876dac6b',1,'Crunch::serdes::StaticLayout']]],
-  ['getheader_4',['GetHeader',['../namespaceCrunch.html#a9e93d0a5387e22741f70026ae7ab5769',1,'Crunch']]]
+  ['getheader_4',['GetHeader',['../namespaceCrunch.html#aad5137104ecd3681c8831356ee6cfeae',1,'Crunch']]]
 ];

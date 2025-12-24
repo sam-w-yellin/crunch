@@ -92,6 +92,7 @@ $(document).ready(function(){initNavTree('namespaceCrunch_1_1detail.html',''); i
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#concepts">Concepts</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">Crunch::detail Namespace Reference</div></div>
 </div><!--header-->
@@ -102,9 +103,18 @@ $(document).ready(function(){initNavTree('namespaceCrunch_1_1detail.html',''); i
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCrunch_1_1detail_1_1is__buffer.html">is_buffer</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCrunch_1_1detail_1_1Buffer.html">Buffer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A lightweight wrapper around a std::array for serializing/deserializing messages.  <a href="structCrunch_1_1detail_1_1Buffer.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCrunch_1_1detail_1_1is__buffer_3_01Buffer_3_01Message_00_01Integrity_00_01Serdes_00_01N_01_4_01_4.html">is_buffer&lt; Buffer&lt; Message, Integrity, Serdes, N &gt; &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCrunch_1_1detail_1_1Decoder.html">Decoder</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classCrunch_1_1detail_1_1Decoder.html" title="Decoder class for deserializing one of N possible message types from a buffer.">Decoder</a> class for deserializing one of N possible message types from a buffer.  <a href="classCrunch_1_1detail_1_1Decoder.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="concepts" name="concepts"></a>
+Concepts</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="conceptCrunch_1_1detail_1_1IsBuffer.html">IsBuffer</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="conceptCrunch_1_1detail_1_1UniqueMessageIds.html">UniqueMessageIds</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
@@ -138,6 +148,16 @@ requires IntegrityPolicy&lt;Integrity&gt; &amp;&amp; SerdesPolicy&lt;Serdes, Mes
 <tr class="memitem:a3d791215cd5a16f8469840d34b6cee84"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceCrunch_1_1detail.html#a3d791215cd5a16f8469840d34b6cee84">Deserialize</a> (std::span&lt; const std::byte &gt; buffer, Message &amp;message) noexcept -&gt; std::optional&lt; <a class="el" href="structCrunch_1_1Error.html">Error</a> &gt;</td></tr>
 <tr class="memdesc:a3d791215cd5a16f8469840d34b6cee84"><td class="mdescLeft">&#160;</td><td class="mdescRight">implementation of Deserialize.  <br /></td></tr>
 <tr class="separator:a3d791215cd5a16f8469840d34b6cee84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35b77e0b57e30b896eb70c9b1a62d0d1"><td class="memTemplParams" colspan="2"><a id="a35b77e0b57e30b896eb70c9b1a62d0d1" name="a35b77e0b57e30b896eb70c9b1a62d0d1"></a>
+template&lt;<a class="el" href="namespaceCrunch.html#a66629eb87acf6767408e23678c44a48f">MessageId</a> Id, typename... Messages&gt; </td></tr>
+<tr class="memitem:a35b77e0b57e30b896eb70c9b1a62d0d1"><td class="memTemplItemLeft" align="right" valign="top">consteval std::size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><b>CountMessageId</b> ()</td></tr>
+<tr class="memdesc:a35b77e0b57e30b896eb70c9b1a62d0d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counts how many messages have the given message ID. <br /></td></tr>
+<tr class="separator:a35b77e0b57e30b896eb70c9b1a62d0d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31eaafbb29e3da8db383154120cc733e"><td class="memTemplParams" colspan="2"><a id="a31eaafbb29e3da8db383154120cc733e" name="a31eaafbb29e3da8db383154120cc733e"></a>
+template&lt;typename... Messages&gt; </td></tr>
+<tr class="memitem:a31eaafbb29e3da8db383154120cc733e"><td class="memTemplItemLeft" align="right" valign="top">consteval bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>HasDuplicateMessageIds</b> ()</td></tr>
+<tr class="memdesc:a31eaafbb29e3da8db383154120cc733e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if any message ID appears more than once. <br /></td></tr>
+<tr class="separator:a31eaafbb29e3da8db383154120cc733e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Internal implementation details for <a class="el" href="namespaceCrunch.html" title="The public API for Crunch.">Crunch</a>'s public API. </p>

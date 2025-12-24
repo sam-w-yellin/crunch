@@ -2,8 +2,12 @@ var annotated_dup =
 [
     [ "Crunch", "namespaceCrunch.html", [
       [ "detail", "namespaceCrunch_1_1detail.html", [
-        [ "is_buffer", "structCrunch_1_1detail_1_1is__buffer.html", null ],
-        [ "is_buffer< Buffer< Message, Integrity, Serdes, N > >", "structCrunch_1_1detail_1_1is__buffer_3_01Buffer_3_01Message_00_01Integrity_00_01Serdes_00_01N_01_4_01_4.html", null ]
+        [ "detail", null, [
+          [ "is_buffer", "structCrunch_1_1detail_1_1detail_1_1is__buffer.html", null ],
+          [ "is_buffer< Buffer< Message, Integrity, Serdes, N > >", "structCrunch_1_1detail_1_1detail_1_1is__buffer_3_01Buffer_3_01Message_00_01Integrity_00_01Serdes_00_01N_01_4_01_4.html", null ]
+        ] ],
+        [ "Buffer", "structCrunch_1_1detail_1_1Buffer.html", null ],
+        [ "Decoder", "classCrunch_1_1detail_1_1Decoder.html", null ]
       ] ],
       [ "fields", null, [
         [ "is_scalar", "structCrunch_1_1fields_1_1is__scalar.html", null ],
@@ -41,7 +45,6 @@ var annotated_dup =
         [ "Varint", "structCrunch_1_1serdes_1_1Varint.html", null ]
       ] ],
       [ "Around", "structCrunch_1_1Around.html", null ],
-      [ "Buffer", "structCrunch_1_1Buffer.html", null ],
       [ "CrunchHeader", "structCrunch_1_1CrunchHeader.html", null ],
       [ "EqualTo", "structCrunch_1_1EqualTo.html", null ],
       [ "Error", "structCrunch_1_1Error.html", "structCrunch_1_1Error" ],

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Crunch: Namespace Members</title>
+<title>Crunch: Crunch::detail::IsBuffer Concept Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -64,7 +64,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('namespacemembers.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('conceptCrunch_1_1detail_1_1IsBuffer.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -89,32 +89,20 @@ $(document).ready(function(){initNavTree('namespacemembers.html',''); initResiza
 </div>
 </div>
 
+<div class="header">
+  <div class="headertitle"><div class="title">Crunch::detail::IsBuffer Concept Reference</div></div>
+</div><!--header-->
 <div class="contents">
-<div class="textblock">Here is a list of all documented namespace members with links to the namespaces they belong to:</div><ul>
-<li>CountMessageId()&#160;:&#160;<a class="el" href="namespaceCrunch_1_1detail.html#a35b77e0b57e30b896eb70c9b1a62d0d1">Crunch::detail</a></li>
-<li>CrunchVersionId&#160;:&#160;<a class="el" href="namespaceCrunch.html#a2c3230e10728f491efe4e268bf3a43da">Crunch</a></li>
-<li>Deserialize()&#160;:&#160;<a class="el" href="namespaceCrunch.html#a5f01fac1ba3e33993b3442bde933211c">Crunch</a>, <a class="el" href="namespaceCrunch_1_1detail.html#a3d791215cd5a16f8469840d34b6cee84">Crunch::detail</a></li>
-<li>ErrorCode&#160;:&#160;<a class="el" href="namespaceCrunch.html#aceb17cbbe1313ae1adc2921919999218">Crunch</a></li>
-<li>FieldId&#160;:&#160;<a class="el" href="namespaceCrunch.html#a3967e2718857d918101818dbbb7c2d5f">Crunch</a></li>
-<li>Format&#160;:&#160;<a class="el" href="namespaceCrunch.html#ab4ab5148661234d560d2d67ca17888f0">Crunch</a></li>
-<li>GetBuffer()&#160;:&#160;<a class="el" href="namespaceCrunch.html#ad7eb5206843b276a9adc32b4c19a2cf0">Crunch</a></li>
-<li>GetBufferSize()&#160;:&#160;<a class="el" href="namespaceCrunch_1_1detail.html#ac0cabb1201d956cdcda881bcb58a7f2b">Crunch::detail</a></li>
-<li>GetHeader()&#160;:&#160;<a class="el" href="namespaceCrunch.html#aad5137104ecd3681c8831356ee6cfeae">Crunch</a></li>
-<li>HasDuplicateMessageIds()&#160;:&#160;<a class="el" href="namespaceCrunch_1_1detail.html#a31eaafbb29e3da8db383154120cc733e">Crunch::detail</a></li>
-<li>LittleEndian()&#160;:&#160;<a class="el" href="namespaceCrunch.html#a5702d25e1f5ddc3d5c5abc453b04ee89">Crunch</a></li>
-<li>MessageId&#160;:&#160;<a class="el" href="namespaceCrunch.html#a66629eb87acf6767408e23678c44a48f">Crunch</a></li>
-<li>Serialize()&#160;:&#160;<a class="el" href="namespaceCrunch_1_1detail.html#a06afee2d028fadec3720e5bb0fe01fdb">Crunch::detail</a>, <a class="el" href="namespaceCrunch.html#a8fceaeae24c854b2aee60248be1e3d7b">Crunch</a></li>
-<li>SerializeWithoutValidation()&#160;:&#160;<a class="el" href="namespaceCrunch_1_1detail.html#a3de82d1b1221442226ee851da8c7ab03">Crunch::detail</a>, <a class="el" href="namespaceCrunch.html#a8da2f969a79a9586832fd4307c7f3afd">Crunch</a></li>
-<li>Validate()&#160;:&#160;<a class="el" href="namespaceCrunch_1_1detail.html#a3761429d8569420cd4d755cd675e3ebc">Crunch::detail</a>, <a class="el" href="namespaceCrunch.html#a02c1d35d2f5759463f1af542b0b3d1cd">Crunch</a></li>
-<li>ValidateField()&#160;:&#160;<a class="el" href="namespaceCrunch_1_1detail.html#a9a9d0d28337a43dc9f2bb85b2f902fb0">Crunch::detail</a></li>
-<li>ValidateHeader()&#160;:&#160;<a class="el" href="namespaceCrunch.html#afd3bb630c0af8cab6f6aeec898b7ba0f">Crunch</a></li>
-<li>WriteHeader()&#160;:&#160;<a class="el" href="namespaceCrunch.html#a33ff6728bbb0018307e5bb45c311373d">Crunch</a></li>
-</ul>
-</div><!-- contents -->
+<h2 class="groupheader">Concept definition</h2>
+<div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="conceptCrunch_1_1detail_1_1IsBuffer.html">Crunch::detail::IsBuffer</a> =  detail::is_buffer&lt;T&gt;::value</div>
+<div class="ttc" id="aconceptCrunch_1_1detail_1_1IsBuffer_html"><div class="ttname"><a href="conceptCrunch_1_1detail_1_1IsBuffer.html">Crunch::detail::IsBuffer</a></div><div class="ttdef"><b>Definition:</b> crunch_detail.hpp:63</div></div>
+</div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
+    <li class="navelem"><a class="el" href="namespaceCrunch.html">Crunch</a></li><li class="navelem"><a class="el" href="namespaceCrunch_1_1detail.html">detail</a></li><li class="navelem"><a class="el" href="conceptCrunch_1_1detail_1_1IsBuffer.html">IsBuffer</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
   </ul>
 </div>

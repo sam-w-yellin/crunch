@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['unique_0',['Unique',['../structCrunch_1_1Unique.html',1,'Crunch']]],
-  ['unknown_1',['UNKNOWN',['../namespaceCrunch.html#aceb17cbbe1313ae1adc2921919999218a696b031073e74bf2cb98e5ef201d4aa3',1,'Crunch']]]
+  ['tlv_0',['TLV',['../namespaceCrunch.html#ab4ab5148661234d560d2d67ca17888f0a2889c17c4a38d863e62affc13cc0afad',1,'Crunch']]],
+  ['tlvlayout_1',['TlvLayout',['../structCrunch_1_1serdes_1_1TlvLayout.html',1,'Crunch::serdes']]],
+  ['true_2',['True',['../structCrunch_1_1True.html',1,'Crunch']]]
 ];

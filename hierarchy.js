@@ -2,9 +2,10 @@ var hierarchy =
 [
     [ "Crunch::Around< Target, Tolerance >", "structCrunch_1_1Around.html", null ],
     [ "Crunch::messages::ArrayField< Id, ElementType, MaxSize, Validators >", "classCrunch_1_1messages_1_1ArrayField.html", null ],
-    [ "Crunch::Buffer< Message, Integrity, Serdes, N >", "structCrunch_1_1Buffer.html", null ],
+    [ "Crunch::detail::Buffer< Message, Integrity, Serdes, N >", "structCrunch_1_1detail_1_1Buffer.html", null ],
     [ "Crunch::integrity::CRC16", "structCrunch_1_1integrity_1_1CRC16.html", null ],
     [ "Crunch::CrunchHeader", "structCrunch_1_1CrunchHeader.html", null ],
+    [ "Crunch::detail::Decoder< Serdes, Integrity, Messages >", "classCrunch_1_1detail_1_1Decoder.html", null ],
     [ "Crunch::EqualTo< Threshold >", "structCrunch_1_1EqualTo.html", null ],
     [ "Crunch::Error", "structCrunch_1_1Error.html", null ],
     [ "Crunch::Even", "structCrunch_1_1Even.html", null ],
@@ -12,7 +13,7 @@ var hierarchy =
     [ "Crunch::serdes::detail::ext< T >", "structCrunch_1_1serdes_1_1detail_1_1ext_3_01T_01_4.html", null ],
     [ "Crunch::False", "structCrunch_1_1False.html", null ],
     [ "std::false_type", null, [
-      [ "Crunch::detail::is_buffer< T >", "structCrunch_1_1detail_1_1is__buffer.html", null ],
+      [ "Crunch::detail::detail::is_buffer< T >", "structCrunch_1_1detail_1_1detail_1_1is__buffer.html", null ],
       [ "Crunch::fields::is_scalar< T >", "structCrunch_1_1fields_1_1is__scalar.html", null ],
       [ "Crunch::fields::is_string< T >", "structCrunch_1_1fields_1_1is__string.html", null ],
       [ "Crunch::messages::is_array_field< T >", "structCrunch_1_1messages_1_1is__array__field.html", null ],
@@ -52,7 +53,7 @@ var hierarchy =
     [ "Crunch::serdes::TlvLayout", "structCrunch_1_1serdes_1_1TlvLayout.html", null ],
     [ "Crunch::True", "structCrunch_1_1True.html", null ],
     [ "std::true_type", null, [
-      [ "Crunch::detail::is_buffer< Buffer< Message, Integrity, Serdes, N > >", "structCrunch_1_1detail_1_1is__buffer_3_01Buffer_3_01Message_00_01Integrity_00_01Serdes_00_01N_01_4_01_4.html", null ],
+      [ "Crunch::detail::detail::is_buffer< Buffer< Message, Integrity, Serdes, N > >", "structCrunch_1_1detail_1_1detail_1_1is__buffer_3_01Buffer_3_01Message_00_01Integrity_00_01Serdes_00_01N_01_4_01_4.html", null ],
       [ "Crunch::fields::is_scalar< Scalar< ScalarType, Validators... > >", "structCrunch_1_1fields_1_1is__scalar_3_01Scalar_3_01ScalarType_00_01Validators_8_8_8_01_4_01_4.html", null ],
       [ "Crunch::fields::is_string< String< MaxSize, V... > >", "structCrunch_1_1fields_1_1is__string_3_01String_3_01MaxSize_00_01V_8_8_8_01_4_01_4.html", null ],
       [ "Crunch::messages::is_array_field< ArrayField< Id, E, M, V... > >", "structCrunch_1_1messages_1_1is__array__field_3_01ArrayField_3_01Id_00_01E_00_01M_00_01V_8_8_8_01_4_01_4.html", null ],
